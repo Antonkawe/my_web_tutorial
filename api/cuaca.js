@@ -1,6 +1,5 @@
-require('dotenv').config();
 const axios = require('axios');
-const API_KEY = process.env.OPENWEATHER_API_KEY;
+const API_KEY = "060a6bcfa19809c2cd4d97a212b19273";
 const sendResponse = (res, status, message, data = null, errorCode = null) => {
     const response = {
         status,
@@ -12,10 +11,9 @@ const sendResponse = (res, status, message, data = null, errorCode = null) => {
     const httpStatus = status === 'success' ? 200 : status === 'error' && errorCode === 'INVALID_API_KEY' ? 401 : 500;
     res.status(httpStatus).end(JSON.stringify(response, null, 2));  
 };
-
 module.exports = async (req, res) => {
     const { apikey, q: city } = req.query;
-    const validApiKey = process.env.API_KEY;
+    const validApiKey = "AlphaCoder03";
     if (apikey !== validApiKey) {
         return sendResponse(
             res,
