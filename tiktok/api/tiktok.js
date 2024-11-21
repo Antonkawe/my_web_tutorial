@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ status: 'error', message: 'URL tidak diberikan.' });
     }
     try {
-        const response = await fetch(`https://www.antoncodder.online/api/tiktok?apikey=AlphaCoder03&url=${encodeURIComponent(url)}`);
+        const response = await fetch(`https://www.antoncodder.online/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`);
         const data = await response.json();
         return res.status(200).json(data);
     } catch (error) {
