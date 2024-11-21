@@ -19,5 +19,11 @@
       "src": "/tiktok",
       "dest": "/tiktok/vkv0-w3zd-muiq6-2j5b.html"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/:path*.html"
+    }
   ]
 }
