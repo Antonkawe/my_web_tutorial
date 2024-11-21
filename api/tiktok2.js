@@ -49,7 +49,6 @@ module.exports = async (req, res) => {
                     errorCode: 'VIDEO_NOT_FOUND',
                     message: 'Video tidak ditemukan.',
                     timestamp: new Date().toISOString(),
-                    requestId: apikey,
                 },
                 null,
                 2
