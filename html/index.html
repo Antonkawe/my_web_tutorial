@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - HTML Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Anton Codder - Tutorial HTML</h1>
+        <p>Halo, selamat datang! Di sini kamu bisa belajar banyak hal tentang pengembangan web. Pilih tutorial yang ingin dipelajari dan kembangkan keterampilanmu bersama Anton Codder!</p>
+    </header>
+
+    <nav>
+        <uul>
+            <lii><a href="#html-1" onclick="showHtml1()">HTML - 1</a></li>
+            <lii><a href="#html-2" onclick="showHtml2()">HTML - 2</a></li>
+            <lii><a href="#html-3" onclick="showHtml3()">HTML - 3</a></li>
+            <lii><a href="#html-4" onclick="showHtml4()">HTML - 4</a></li>
+        </uul>
+    </nav>
+
+  <div class="container">
+    <div class="code-container" id="html-1">
+        <div class="code-header">
+            <h3>HTML - 1: Basic Structure</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+        <p>This tutorial covers the basic HTML structure, including the use of `DOCTYPE`, `html`, `head`, and `body` tags.</p>
+    </div>
+
+    <div class="code-container" id="html-2">
+        <div class="code-header">
+            <h3>HTML - 2: Forms and Inputs</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;form&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+        </code></pre>
+        <p>Learn how to create basic forms and input fields in HTML, allowing users to submit data through your website.</p>
+    </div>
+
+    <div class="code-container" id="html-3">
+        <div class="code-header">
+            <h3>HTML - 3: Lists and Links</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;ul&gt;
+    &lt;li&gt;Home&lt;/li&gt;
+    &lt;li&gt;About&lt;/li&gt;
+    &lt;li&gt;Contact&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+        </code></pre>
+        <p>This tutorial teaches you how to create lists and add hyperlinks to your HTML pages, which is essential for navigation.</p>
+    </div>
+
+    <div class="code-container" id="html-4">
+        <div class="code-header">
+            <h3>HTML - 4: Tables and Images</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Anton&lt;/td&gt;
+        &lt;td&gt;16&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;img src="https://via.placeholder.com/150" alt="Example Image"&gt;
+        </code></pre>
+        <p>This section covers how to create tables and insert images into your HTML documents.</p>
+    </div>
+  </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Anton Codder. Semua Hak Cipta Dilindungi. Dibuat dengan ketelitian oleh Anton</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

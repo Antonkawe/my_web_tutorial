@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/box.css">
+    <style>
+.penjelasan {
+    background-color: #262626;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.penjelasan h2 {
+    color: #A8FF60;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.penjelasan p {
+    font-size: 1rem;
+    color: #D1D1D1;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .penjelasan h2 {
+        font-size: 1.3rem;
+    }
+
+    .penjelasan p {
+        font-size: 0.9rem;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div id="account-menu-container">
+        <div id="account-menu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">✖</span>
+        <a href="javascript:void(0);" onclick="Home()"> Kembali</a>
+    </div>
+
+    <div class="container">
+        <section class="penjelasan">
+    <h2>Parallel Processing dengan Multiprocessing Pool</h2>
+    <p>Contoh ini menggunakan modul <code>multiprocessing</code> untuk melakukan komputasi secara paralel, memungkinkan program memanfaatkan beberapa core CPU untuk mempercepat pemrosesan data besar.</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+import multiprocessing as mp
+import time
+
+def compute_square(n):
+    time.sleep(1)  # simulasi proses yang memakan waktu
+    return n * n
+
+if __name__ == "__main__":
+    with mp.Pool(4) as pool:
+        results = pool.map(compute_square, range(1, 11))
+    print(results)
+    </code></pre>
+    <p>Penjelasan: Menggunakan <code>Pool</code> untuk memproses fungsi secara paralel pada 4 core, sehingga waktu proses menjadi lebih efisien.</p>
+</div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/script.js"></script>
+</body>
+</html>

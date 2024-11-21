@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>AlphaCoder - Market</title>
+    <link rel="stylesheet" href="../css/j8ck-9ek3-ic20-92ks-nzd2.css">
+  </head>
+  <body>
+    <header>
+      <h1>AlphaCoder - Market</h1>
+    </header>
+    <main>
+      <section class="product-section">
+        <div class="product">
+          <p><strong>Script Enkripsi AES RSA - Python</strong> - Rp15.000</p>
+          <button class="buy-now" onclick="openModal('Script Enkripsi AES RSA - Python', 15000)">Buy Now</button>
+        </div>
+        <div class="product">
+          <p><strong>Script Enkripsi AES RSA - Javascript</strong> - Rp13.000</p>
+          <button class="buy-now" onclick="openModal('Script Enkripsi AES RSA - Javascript', 13000)">Buy Now</button>
+        </div>
+        <div class="product">
+          <p><strong>Script Bot Whatsapp MD</strong> - Rp20.000</p>
+          <button class="buy-now" onclick="openModal('Script Bot Whatsapp MD', 20000)">Buy Now</button>
+        </div>
+      </section>
+    </main>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title">Buy Now</h2>
+        <p id="modal-price"></p>
+        <form id="purchase-form" onsubmit="submitProof(event)">
+          <label for="quantity">Jumlah Barang:</label>
+          <input type="number" id="quantity" name="quantity" min="1" value="1" required oninput="updatePrice()">
+          <p id="total-price">Total Harga: Rp0</p>
+          <label for="payment-method">Pilih Metode Pembayaran:</label>
+          <select id="payment-method" name="payment-method" onchange="showPaymentDetails()" required>
+            <option value="">-- Pilih Metode --</option>
+            <option value="bitcoin">BitCoin</option>
+            <option value="Gopay">Gopay</option>
+            <option value="Dana">Dana</option>
+          </select>
+          <div id="payment-details" class="payment-details">
+            <p id="payment-info"></p>
+          </div>
+          <div id="upload-section" class="upload-section">
+            <label for="proof-upload">Tolong Nanti Kirim Bersama Foto transfer</label>
+            <button type="submit">Lanjutkan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="../Xv2s-K9x8-Nd7e-X62n/j2dj-2msX-CnKe-l29s.js"></script>
+  </body>
+</html>

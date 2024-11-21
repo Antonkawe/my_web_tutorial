@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - Advanced JavaScript Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Anton Codder - JavaScript Tutorials</h1>
+        <p>Welcome to Anton's JavaScript Tutorials. Select a tutorial below to learn more!</p>
+    </header>
+
+    <div class="container">
+        <div class="code-container">
+            <div class="code-header">
+                <h3>1. Asynchronous JavaScript (setTimeout)</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menunda eksekusi kode dengan setTimeout
+console.log("Start");
+setTimeout(() => {
+    console.log("Delayed message");
+}, 2000); // 2000ms = 2 detik
+console.log("End");
+            </code></pre>
+            <p>Penjelasan: `setTimeout` digunakan untuk menunda eksekusi kode dalam waktu tertentu. Dalam contoh ini, "Delayed message" akan muncul setelah 2 detik, sementara "Start" dan "End" dicetak lebih dulu.</p>
+        </div>
+
+        <!-- Section 2: Promise dengan Fetch API -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>2. Promise dengan Fetch API</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Mengambil data dari API menggunakan Fetch
+fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log("Error:", error));
+            </code></pre>
+            <p>Penjelasan: Di sini kita menggunakan `fetch` untuk mengambil data dari API dan mengonversinya ke dalam format JSON. Kita juga menangani kemungkinan error dengan `catch`.</p>
+        </div>
+
+        <!-- Section 3: Async/Await -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>3. Async/Await</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menggunakan async/await untuk menangani asinkron
+async function getPosts() {
+    try {
+        let response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        let data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+getPosts();
+            </code></pre>
+            <p>Penjelasan: Dengan `async/await`, kita dapat menulis kode asinkron dengan cara yang lebih bersih dan lebih mudah dipahami, tanpa perlu menggunakan `.then()`.</p>
+        </div>
+
+        <!-- Section 4: Closure dalam JavaScript -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>4. Closure dalam JavaScript</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Closure adalah fungsi yang memiliki akses ke variabel di luar fungsi
+function outerFunction(outerVariable) {
+    return function innerFunction(innerVariable) {
+        console.log(outerVariable, innerVariable);
+    };
+}
+
+let myClosure = outerFunction("Hello");
+myClosure("World");
+            </code></pre>
+            <p>Penjelasan: Closure terjadi ketika sebuah fungsi memiliki akses ke variabel yang dideklarasikan di luar fungsi tersebut. Dalam contoh ini, `innerFunction` memiliki akses ke `outerVariable` yang didefinisikan dalam `outerFunction`.</p>
+        </div>
+
+        <!-- Section 5: Debouncing Function -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>5. Debouncing Function</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menunda eksekusi fungsi hingga setelah selesai mengetik
+let debounceTimer;
+function debounce(func, delay) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(func, delay);
+}
+
+function sayHello() {
+    console.log("Hello after typing...");
+}
+
+document.getElementById("inputField").addEventListener('keyup', () => {
+    debounce(sayHello, 500);
+});
+            </code></pre>
+            <p>Penjelasan: Debouncing digunakan untuk menunda eksekusi suatu fungsi hingga pengguna selesai melakukan aksi tertentu, seperti mengetik. Dalam contoh ini, fungsi `sayHello` hanya akan dipanggil setelah pengguna berhenti mengetik selama 500ms.</p>
+        </div>
+
+        <!-- Section 6: Map, Filter, dan Reduce -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>6. Map, Filter, dan Reduce</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menggunakan map, filter, dan reduce untuk memproses array
+let numbers = [1, 2, 3, 4, 5];
+
+let squared = numbers.map(x => x * x);
+console.log(squared);
+
+let evenNumbers = numbers.filter(x => x % 2 === 0);
+console.log(evenNumbers);
+
+let sum = numbers.reduce((acc, x) => acc + x, 0);
+console.log(sum);
+            </code></pre>
+            <p>Penjelasan: `map` digunakan untuk mengubah setiap elemen dalam array, `filter` untuk menyaring elemen, dan `reduce` untuk menggabungkan elemen-elemen menjadi satu nilai. Ketiganya adalah metode penting untuk memanipulasi array di JavaScript.</p>
+        </div>
+
+        <!-- Section 7: Destructuring Assignment -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>7. Destructuring Assignment</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menggunakan destructuring untuk ekstrak nilai dari objek
+let person = { name: "Anton", age: 16 };
+let { name, age } = person;
+console.log(name, age);
+            </code></pre>
+            <p>Penjelasan: Destructuring adalah cara yang lebih singkat untuk mengekstrak nilai dari objek atau array. Di sini, kita mengekstrak `name` dan `age` dari objek `person`.</p>
+        </div>
+
+        <!-- Section 8: Arrow Functions with This -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>8. Arrow Functions with This</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Perbedaan antara fungsi biasa dan arrow function dengan "this"
+function regularFunction() {
+    console.log(this);
+}
+
+const arrowFunction = () => {
+    console.log(this);
+};
+
+regularFunction(); // this menunjuk pada global object
+arrowFunction(); // this menunjuk pada konteks di mana arrow function didefinisikan
+            </code></pre>
+            <p>Penjelasan: Fungsi biasa menggunakan nilai `this` dari objek tempat fungsi tersebut dipanggil, sementara `arrow function` tidak memiliki nilai `this` sendiri, dan akan mewarisi nilai `this` dari konteks di mana fungsi tersebut didefinisikan.</p>
+        </div>
+
+        <!-- Section 9: IIFE (Immediately Invoked Function Expression) -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>9. IIFE (Immediately Invoked Function Expression)</h3>
+            </div>
+            <pre><code class="language-javascript">
+// IIFE adalah fungsi yang didefinisikan dan langsung dipanggil
+(function() {
+    console.log("This is an IIFE");
+})();
+            </code></pre>
+            <p>Penjelasan: IIFE adalah pola di mana fungsi didefinisikan dan langsung dipanggil setelah dideklarasikan. Ini sering digunakan untuk membuat fungsi yang tidak mempengaruhi ruang lingkup global.</p>
+        </div>
+
+        <!-- Section 10: Modules in JavaScript -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>10. Modules in JavaScript</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menggunakan import dan export untuk modul JavaScript
+// File: math.js
+export function add(a, b) {
+    return a + b;
+}
+
+// File utama
+import { add } from './math.js';
+console.log(add(2, 3));
+            </code></pre>
+            <p>Penjelasan: Modul di JavaScript memungkinkan kita untuk membagi kode menjadi bagian-bagian terpisah yang dapat digunakan di berbagai file. Di sini, kita mengimpor fungsi `add` dari file `math.js` dan menggunakannya dalam file utama.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Anton Codder. Semua Hak Cipta Dilindungi. Dibuat dengan ketelitian oleh Anton</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

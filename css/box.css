@@ -1,0 +1,14 @@
+/*
+   Name: Anton
+   Project Name: AlphaCoder
+   Github: https://github.com/AntonThomz
+   Deskripsi: 
+   AlphaCoder adalah sebuah proyek yang bertujuan untuk memberikan solusi 
+   perangkat lunak berbasis web dengan fokus pada pengembangan antarmuka 
+   pengguna yang responsif dan intuitif. Proyek ini dikembangkan dengan 
+   menggunakan teknologi terbaru untuk memberikan pengalaman pengguna yang 
+   terbaik, termasuk di antaranya CSS untuk styling, JavaScript untuk interaksi, 
+   dan HTML untuk struktur. AlphaCoder juga berfokus pada aksesibilitas dan 
+   performa yang optimal di berbagai platform.
+*/
+.container{flex:1;width:90%;max-width:1200px;margin:0 auto;padding:10px;box-sizing:border-box}.code-container{position:relative;background-color:#2e2e2e;border-radius:6px;margin-top:20px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.3);width:100%;max-width:100%;margin:20px auto;padding:9px}.code-container pre{position:relative;background-color:#000!important;border-radius:5px;padding:15px;font-size:.9em;overflow-x:auto;box-shadow:0 4px 8px rgba(0,0,0,0.3);max-width:100%;margin:10px auto}.code-header{display:flex;justify-content:space-between;align-items:center;background-color:transparent;color:#d1d5da;padding:8px 16px;font-size:.9em;border-radius:6px 6px 0 0}.copy-btn{display:inline-flex;align-items:center;padding:4px;background-color:transparent;color:#6a737d;border:none;cursor:pointer;font-size:.9em;transition:color .2s ease}.copy-btn:hover{color:#fff}code{font-family:Courier,monospace;white-space:pre;word-wrap:normal;display:block}.counts{flex:1;background:#f5f5ff;padding:70px 0 60px}.counts .count-box{padding:30px 30px 25px 30px;width:100%;position:relative;text-align:center;background:#fff}.counts .count-box i{position:absolute;top:-25px;left:50%;transform:translateX(-50%);font-size:20px;background:#1acc8d;padding:12px;color:#fff;border-radius:50px;display:inline-flex;align-items:center;justify-content:center;line-height:0;width:48px;height:48px}.counts .count-box span{font-size:36px;display:block;font-weight:600;color:#010483}.counts .count-box p{padding:0;margin:0;font-family:"Montserrat",sans-serif;font-size:14px}

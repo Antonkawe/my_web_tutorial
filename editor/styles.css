@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#header {
+    flex-shrink: 0;
+    padding: 10px;
+    background-color: #444;
+    width: 100%;
+}
+
+#editor {
+    flex-grow: 1; /* Membuat editor menempati ruang yang tersisa */
+    width: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: vertical; /* Opsional, membuat editor bisa di-resize secara vertikal */
+}
+
+#header input[type="file"], 
+#header button {
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: auto;
+    max-width: 150px;
+    text-align: center;
+    min-width: 120px;
+}
+
+#header button:hover, 
+#header input[type="file"]:hover {
+    background-color: #666;
+}

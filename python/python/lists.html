@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/box.css">
+    <style>
+.penjelasan {
+    background-color: #262626;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.penjelasan h2 {
+    color: #A8FF60;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.penjelasan p {
+    font-size: 1rem;
+    color: #D1D1D1;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .penjelasan h2 {
+        font-size: 1.3rem;
+    }
+
+    .penjelasan p {
+        font-size: 0.9rem;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div id="account-menu-container">
+        <div id="account-menu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">✖</span>
+        <a href="javascript:void(0);" onclick="Home()"> Kembali</a>
+    </div>
+
+    <div class="container">
+        <section class="penjelasan">
+    <h2>1. Metaprogramming dengan Decorators</h2>
+    <p>Decorator adalah fungsi yang mengubah fungsi lain, memungkinkan pengguna untuk menambahkan fungsionalitas secara dinamis. Berikut contoh decorator untuk mengukur waktu eksekusi fungsi:</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+import time
+
+def timer_decorator(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Time taken by {func.__name__}: {end - start:.4f} seconds")
+        return result
+    return wrapper
+
+@timer_decorator
+def calculate_prime_numbers(limit):
+    primes = []
+    for num in range(2, limit):
+        if all(num % prime != 0 for prime in primes):
+            primes.append(num)
+    return primes
+
+calculate_prime_numbers(5000)
+    </code></pre>
+    <p>Penjelasan: Decorator <code>timer_decorator</code> mengukur waktu yang dibutuhkan oleh fungsi <code>calculate_prime_numbers</code> untuk mengeksekusi.</p>
+</div>
+
+<section class="penjelasan">
+    <h2>2. Asynchronous Programming dengan Asyncio</h2>
+    <p>Python <code>asyncio</code> digunakan untuk menangani operasi IO secara asinkron. Berikut contoh untuk melakukan <code>HTTP requests</code> secara paralel:</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+import asyncio
+import aiohttp
+
+async def fetch(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.text()
+
+async def main():
+    urls = ["https://example.com", "https://python.org", "https://openai.com"]
+    tasks = [fetch(url) for url in urls]
+    results = await asyncio.gather(*tasks)
+    for result in results:
+        print(result[:100])  # Print first 100 characters
+
+asyncio.run(main())
+    </code></pre>
+    <p>Penjelasan: Kode ini melakukan request HTTP asinkron ke beberapa URL secara paralel menggunakan <code>asyncio</code> dan <code>aiohttp</code>.</p>
+</div>
+
+<section class="penjelasan">
+    <h2>3. Generator Function dengan Coroutines</h2>
+    <p>Generator memungkinkan penghitungan nilai secara lazy. Berikut adalah implementasi generator untuk menghitung deret Fibonacci:</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+def fibonacci_generator():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+
+fibo = fibonacci_generator()
+for _ in range(10):
+    print(next(fibo))
+    </code></pre>
+    <p>Penjelasan: Generator <code>fibonacci_generator</code> secara efisien menghitung elemen berikutnya dalam deret Fibonacci tanpa menyimpan seluruh nilai dalam memori.</p>
+</div>
+
+<section class="penjelasan">
+    <h2>4. Manipulasi Data dengan Pandas</h2>
+    <p>Python <code>pandas</code> memudahkan manipulasi data, terutama dalam analisis data. Berikut contoh untuk mengelompokkan data dan menghitung statistik:</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+import pandas as pd
+
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David', 'Edward'],
+    'age': [24, 27, 22, 32, 29],
+    'score': [85, 92, 88, 79, 95]
+}
+
+df = pd.DataFrame(data)
+grouped = df.groupby('age').mean()
+print(grouped)
+    </code></pre>
+    <p>Penjelasan: Kode ini menggunakan <code>pandas</code> untuk membuat DataFrame dan menghitung nilai rata-rata berdasarkan umur.</p>
+</div>
+
+<section class="penjelasan">
+    <h2>5. Object-Oriented Programming dengan Metaclasses</h2>
+    <p>Metaclass memungkinkan pengguna untuk memodifikasi pembuatan kelas. Berikut adalah contoh metaclass yang mencatat pembuatan kelas baru:</p>
+</section>
+<div class="code-container">
+    <pre><code class="language-python">
+class LoggingMeta(type):
+    def __new__(cls, name, bases, class_dict):
+        print(f"Creating class {name}")
+        return super().__new__(cls, name, bases, class_dict)
+
+class Person(metaclass=LoggingMeta):
+    def __init__(self, name):
+        self.name = name
+
+p = Person("Alice")
+    </code></pre>
+    <p>Penjelasan: Metaclass <code>LoggingMeta</code> akan mencetak pesan setiap kali kelas baru dibuat, memungkinkan logging selama inisialisasi kelas.</p>
+</div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <script src="../../assets/js/script.js"></script>
+</body>
+</html>

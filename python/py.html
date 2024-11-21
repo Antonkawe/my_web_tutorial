@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Python untuk Pemula</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+    <style>
+.penjelasan {
+    background-color: #262626;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.penjelasan h2 {
+    color: #A8FF60;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.penjelasan p {
+    font-size: 1rem;
+    color: #D1D1D1;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .penjelasan h2 {
+        font-size: 1.3rem;
+    }
+
+    .penjelasan p {
+        font-size: 0.9rem;
+    }
+}
+</style>
+</head>
+<body>
+
+    <div id="account-menu-container">
+        <div id="account-menu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">✖</span>
+        <a href="javascript:void(0);" onclick="show1()"> Proyek praktis</a>
+        <a href="javascript:void(0);" onclick="show2()"> Struktur Kontrol</a>
+        <a href="javascript:void(0);" onclick="show3()"> Fungsi di Python</a>
+        <a href="javascript:void(0);" onclick="show4()"> Variable</a>
+        <a href="javascript:void(0);" onclick="show5()"> conditional</a>
+        <a href="javascript:void(0);" onclick="show6()"> List</a>
+        <a href="javascript:void(0);" onclick="show7()"> Loops</a>
+        <a href="javascript:void(0);" onclick="show8()"> tuples</a>
+        <a href="javascript:void(0);" onclick="show9()"> dictionaries</a>  
+        <a href="javascript:void(0);" onclick="show10()"> exceptions</a>
+        <a href="javascript:void(0);" onclick="show11()"> classes</a>
+        <a href="javascript:void(0);" onclick="show12()"> imports</a>
+        <a href="javascript:void(0);" onclick="show13()"> lambda functions</a>
+        <a href="javascript:void(0);" onclick="show14()"> map filter reduce</a>
+        <a href="javascript:void(0);" onclick="show15()"> decorators</a>
+        <a href="javascript:void(0);" onclick="show16()"> recursion</a> 
+        <a href="javascript:void(0);" onclick="show17()"> generators</a>
+        <a href="javascript:void(0);" onclick="show18()"> context managers</a>
+        <a href="javascript:void(0);" onclick="show19()"> args kwargs</a>
+        <a href="javascript:void(0);" onclick="show20()"> comprehensions</a>
+        <a href="javascript:void(0);" onclick="show21()"> importing modules</a>
+        <a href="javascript:void(0);" onclick="show22()"> multi threading</a>
+        <a href="javascript:void(0);" onclick="show23()"> parallel-processing</a>
+        <a href="javascript:void(0);" onclick="show24()"> dynamic-class-generation</a>
+    </div>
+
+    <div class="container">
+        <section class="penjelasan">
+            <h2>Pengenalan Python</h2>
+            <p>Python adalah bahasa pemrograman yang mudah dipelajari dan sangat kuat. Python sering digunakan dalam berbagai bidang, seperti pengembangan web, analisis data, kecerdasan buatan, dan lainnya.</p>
+        </section>
+
+        <section class="penjelasan">
+            <h2>Instalasi Python</h2>
+            <p>Untuk mulai menggunakan Python, kamu harus menginstalnya terlebih dahulu. Ikuti langkah-langkah berikut:</p>
+            <ol>
+                <p>1. Kunjungi halaman resmi Python di <a href="https://www.python.org/downloads/" target="_blank">python.org</a>.</p>
+                <p>2. Pilih versi terbaru untuk sistem operasi kamu.</p>
+                <p>3. Ikuti instruksi instalasi yang muncul di layar.</p>
+            </ol>
+        </section>
+        
+        <section class="penjelasan">
+            <h2>Sintaks Dasar Python</h2>
+            <p>Python memiliki sintaks yang sederhana dan mudah dibaca. Berikut adalah contoh penggunaan variabel dan operator:</p>
+        </section>
+
+        <div class="code-container">
+            <div class="code-header">
+            </div>
+            <pre><code class="language-python">
+# Variabel dan Tipe Data
+x = 5   # Integer
+y = 3.2 # Float
+nama = "Anton"  # String
+
+# Operator
+hasil = x + y  # Penjumlahan
+print(hasil)
+           </code></pre>
+           <p>Penjelasan: Di atas adalah contoh variabel dan operator yang digunakan dalam Python. Kode ini menjumlahkan x dan y, kemudian menampilkan hasilnya menggunakan fungsi <code>print()</code>.</p>
+         </div>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+   <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - Advanced HTML Tutorials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Anton Codder - Tutorial HTML</h1>
+        <p>Halo, selamat datang! Di sini kamu bisa belajar banyak hal tentang pengembangan web. Pilih tutorial yang ingin dipelajari dan kembangkan keterampilanmu bersama Anton Codder!</p>
+    </header>
+
+    <div class="container">
+        <!-- Tutorial 1 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>1. Penggunaan Tag Semantic HTML</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Menggunakan tag semantic untuk struktur yang lebih baik --&gt;
+&lt;header&gt;&lt;h1&gt;Judul Artikel&lt;/h1&gt;&lt;/header&gt;
+&lt;nav&gt;&lt;a href="#content"&gt;Lompat ke konten&lt;/a&gt;&lt;/nav&gt;
+&lt;section id="content"&gt;
+    &lt;article&gt;&lt;p&gt;Konten utama artikel di sini.&lt;/p&gt;&lt;/article&gt;
+&lt;/section&gt;
+            </code></pre>
+            <p>Penjelasan: Tag seperti `header`, `nav`, dan `article` membantu SEO dan aksesibilitas.</p>
+        </div>
+
+        <!-- Tutorial 2 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>2. Menggunakan CSS Flexbox untuk Layout</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Membuat layout responsif dengan Flexbox --&gt;
+&lt;div style="display: flex; gap: 10px;"&gt;
+    &lt;div&gt;Kolom 1&lt;/div&gt;
+    &lt;div&gt;Kolom 2&lt;/div&gt;
+    &lt;div&gt;Kolom 3&lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>Penjelasan: Flexbox memudahkan pengaturan layout fleksibel untuk elemen-elemen.</p>
+        </div>
+
+        <!-- Tutorial 3 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>3. Menggunakan CSS Grid</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Layout dengan CSS Grid --&gt;
+&lt;div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;"&gt;
+    &lt;div&gt;Item 1&lt;/div&gt;
+    &lt;div&gt;Item 2&lt;/div&gt;
+    &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>Penjelasan: CSS Grid memungkinkan layout 2D yang lebih kompleks.</p>
+        </div>
+
+        <!-- Tutorial 4 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>4. Membuat Animasi dengan CSS</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Menambahkan animasi dengan CSS --&gt;
+&lt;style&gt;
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .fade-in { animation: fadeIn 2s ease-in; }
+&lt;/style&gt;
+&lt;p class="fade-in"&gt;Teks muncul perlahan&lt;/p&gt;
+            </code></pre>
+            <p>Penjelasan: Menggunakan `@keyframes` untuk membuat animasi CSS sederhana.</p>
+        </div>
+
+        <!-- Tutorial 5 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>5. Menggunakan Tag &lt;iframe&gt;</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Menyisipkan konten lain dengan iframe --&gt;
+&lt;iframe src="https://www.example.com" width="600" height="400"&gt;&lt;/iframe&gt;
+            </code></pre>
+            <p>Penjelasan: Tag `iframe` digunakan untuk menyisipkan halaman atau konten lain.</p>
+        </div>
+
+        <!-- Tutorial 6 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>6. Menambahkan Video dari YouTube dengan Embed</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Menambahkan video YouTube --&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/video_id" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+            </code></pre>
+            <p>Penjelasan: Menggunakan `iframe` untuk embed video dari platform lain.</p>
+        </div>
+
+        <!-- Tutorial 7 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>7. Membuat Formulir yang Lebih Kompleks</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Formulir dengan berbagai tipe input --&gt;
+&lt;form&gt;
+    &lt;label&gt;Nama: &lt;input type="text" name="name"&gt;&lt;/label&gt;
+    &lt;label&gt;Email: &lt;input type="email" name="email"&gt;&lt;/label&gt;
+    &lt;label&gt;Password: &lt;input type="password" name="password"&gt;&lt;/label&gt;
+    &lt;button type="submit"&gt;Kirim&lt;/button&gt;
+&lt;/form&gt;
+            </code></pre>
+            <p>Penjelasan: Menggunakan berbagai tipe input untuk kebutuhan form yang lebih kompleks.</p>
+        </div>
+
+        <!-- Tutorial 8 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>8. Membuat Modal dengan JavaScript</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Membuat modal popup dengan JavaScript --&gt;
+&lt;button onclick="document.getElementById('modal').style.display='block'"&gt;Buka Modal&lt;/button&gt;
+&lt;div id="modal" style="display:none;"&gt;
+    &lt;p&gt;Ini adalah modal popup&lt;/p&gt;
+    &lt;button onclick="document.getElementById('modal').style.display='none'"&gt;Tutup&lt;/button&gt;
+&lt;/div&gt;
+            </code></pre>
+            <p>Penjelasan: Membuat pop-up sederhana dengan JavaScript.</p>
+        </div>
+
+        <!-- Tutorial 9 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>9. Menggunakan Local Storage di JavaScript</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Menyimpan data ke Local Storage --&gt;
+&lt;script&gt;
+    localStorage.setItem('name', 'Anton');
+    document.write(localStorage.getItem('name'));
+&lt;/script&gt;
+            </code></pre>
+            <p>Penjelasan: Local Storage memungkinkan penyimpanan data pada browser.</p>
+        </div>
+
+        <!-- Tutorial 10 -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>10. Dasar-Dasar Fetch API untuk Mengambil Data dari API</h3>
+            </div>
+            <pre><code class="language-html">
+&lt;!-- Mengambil data dari API dengan Fetch --&gt;
+&lt;script&gt;
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+    .then(response =&gt; response.json())
+    .then(data =&gt; console.log(data));
+&lt;/script&gt;
+            </code></pre>
+            <p>Penjelasan: Fetch API digunakan untuk mengambil data dari server atau API.</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Anton Codder. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+</body>
+</html>

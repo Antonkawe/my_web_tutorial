@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - JavaScript Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Anton Codder - JavaScript Tutorials</h1>
+        <p>Welcome to Anton's JavaScript Tutorials. Select a tutorial below to learn more!</p>
+    </header>
+
+    <div class="container">
+        <div class="code-container">
+            <div class="code-header">
+                <h3>1. Hello World</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menampilkan teks "Hello, World!" ke console
+console.log("Hello, World!");
+            </code></pre>
+            <p>Penjelasan: Kode ini mencetak teks "Hello, World!" ke console, yang merupakan cara pertama yang umum untuk memulai belajar pemrograman di banyak bahasa.</p>
+        </div>
+
+        <!-- Section 2: Variabel dan Tipe Data -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>2. Variabel dan Tipe Data</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Mendeklarasikan variabel dengan tipe data string dan number
+let name = "Anton";
+let age = 16;
+console.log(name, age);
+            </code></pre>
+            <p>Penjelasan: Di sini kita mendeklarasikan dua variabel menggunakan `let`. Variabel `name` menyimpan nilai string dan `age` menyimpan angka. Kode ini kemudian mencetak keduanya ke console.</p>
+        </div>
+
+        <!-- Section 3: Fungsi Dasar -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>3. Fungsi Dasar</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Fungsi greet yang menerima parameter name
+function greet(name) {
+    console.log("Hello, " + name + "!");
+}
+greet("Anton");
+            </code></pre>
+            <p>Penjelasan: Fungsi `greet` didefinisikan untuk menerima parameter `name` dan mencetak pesan sapaan menggunakan `console.log()`.</p>
+        </div>
+
+        <!-- Section 4: Pengkondisian (If Statement) -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>4. Pengkondisian (If Statement)</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Pengkondisian untuk mengecek apakah number lebih besar dari 5
+let number = 10;
+if (number > 5) {
+    console.log("Number is greater than 5");
+} else {
+    console.log("Number is 5 or less");
+}
+            </code></pre>
+            <p>Penjelasan: Di sini, kode memeriksa apakah variabel `number` lebih besar dari 5 dan mencetak hasilnya berdasarkan kondisi tersebut.</p>
+        </div>
+
+        <!-- Section 5: Looping (For Loop) -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>5. Looping (For Loop)</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Loop untuk mencetak angka dari 1 sampai 5
+for (let i = 1; i <= 5; i++) {
+    console.log(i);
+}
+            </code></pre>
+            <p>Penjelasan: `for` loop digunakan untuk menjalankan kode secara berulang. Dalam hal ini, kode ini akan mencetak angka dari 1 hingga 5.</p>
+        </div>
+
+        <!-- Section 6: Array dan Looping Array -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>6. Array dan Looping Array</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Array dengan beberapa nilai dan loop untuk mencetaknya
+let fruits = ["Apple", "Banana", "Cherry"];
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+            </code></pre>
+            <p>Penjelasan: Array digunakan untuk menyimpan beberapa elemen. Di sini kita menggunakan loop untuk mencetak setiap elemen dari array `fruits`.</p>
+        </div>
+
+        <!-- Section 7: Objek dalam JavaScript -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>7. Objek dalam JavaScript</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Objek dengan properti dan metode
+let person = {
+    name: "Anton",
+    age: 16,
+    greet: function() {
+        console.log("Hello, " + this.name);
+    }
+};
+person.greet();
+            </code></pre>
+            <p>Penjelasan: Objek dalam JavaScript memungkinkan kita untuk menyimpan berbagai properti dan metode. Di sini, objek `person` memiliki properti `name` dan `age`, serta metode `greet` yang digunakan untuk menyapa.</p>
+        </div>
+
+        <!-- Section 8: Arrow Function -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>8. Arrow Function</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Arrow function untuk penjumlahan dua angka
+const add = (a, b) => a + b;
+console.log(add(5, 3));
+            </code></pre>
+            <p>Penjelasan: Arrow function adalah cara singkat untuk menulis fungsi di JavaScript. Contoh ini menunjukkan cara menggunakan arrow function untuk menjumlahkan dua angka.</p>
+        </div>
+
+        <!-- Section 9: Promise dalam JavaScript -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>9. Promise dalam JavaScript</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Membuat promise untuk menangani operasi asinkron
+let promise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Operation was successful!");
+    } else {
+        reject("Operation failed");
+    }
+});
+promise.then(result => console.log(result)).catch(error => console.log(error));
+            </code></pre>
+            <p>Penjelasan: Promise digunakan untuk menangani operasi asinkron. Di sini kita membuat promise yang berhasil jika kondisi `success` bernilai true, dan gagal jika sebaliknya.</p>
+        </div>
+
+        <!-- Section 10: Event Handling -->
+        <div class="code-container">
+            <div class="code-header">
+                <h3>10. Event Handling</h3>
+            </div>
+            <pre><code class="language-javascript">
+// Menambahkan event listener untuk tombol
+document.getElementById("myButton").addEventListener("click", function() {
+    alert("Button clicked!");
+});
+            </code></pre>
+            <p>Penjelasan: Kode ini menambahkan event listener pada tombol dengan id `myButton`. Ketika tombol diklik, sebuah alert akan muncul.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Anton Codder. Semua Hak Cipta Dilindungi. Dibuat dengan ketelitian oleh Anton</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>

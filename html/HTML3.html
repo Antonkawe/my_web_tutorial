@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anton Codder - Advanced HTML Tutorials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/box.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Anton Codder - Tutorial HTML</h1>
+        <p>Halo, selamat datang! Di sini kamu bisa belajar banyak hal tentang pengembangan web. Pilih tutorial yang ingin dipelajari dan kembangkan keterampilanmu bersama Anton Codder!</p>
+    </header>
+
+<div class="container">
+    <!-- Tutorial 1: Semantic Elements and Accessibility -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>1. Semantic HTML & Accessibility</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Semantic Elements for Accessibility --&gt;
+&lt;header&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+    &lt;section aria-labelledby="about-heading"&gt;
+        &lt;h2 id="about-heading"&gt;About Us&lt;/h2&gt;
+        &lt;p&gt;Details about our website.&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;
+    &lt;p&gt;&copy; 2024 Anton Codder&lt;/p&gt;
+&lt;/footer&gt;
+        </code></pre>
+        <p>Penjelasan: Penggunaan elemen semantik seperti `<header>`, `<nav>`, `<main>`, dan `<footer>` untuk meningkatkan aksesibilitas.</p>
+    </div>
+
+    <!-- Tutorial 2: Responsive Images and Picture Element -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>2. Responsive Images with the Picture Element</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Responsive Images Using &lt;picture&gt; Element --&gt;
+&lt;picture&gt;
+    &lt;source srcset="image-large.jpg" media="(min-width: 800px)"&gt;
+    &lt;source srcset="image-medium.jpg" media="(min-width: 500px)"&gt;
+    &lt;img src="image-small.jpg" alt="Responsive image"&gt;
+&lt;/picture&gt;
+        </code></pre>
+        <p>Penjelasan: Tag `<picture>` memungkinkan pemilihan gambar sesuai ukuran layar untuk desain yang responsif.</p>
+    </div>
+
+    <!-- Tutorial 3: Custom Checkbox and Radio Buttons -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>3. Custom Checkbox and Radio Buttons</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Custom Checkbox and Radio Buttons --&gt;
+&lt;form&gt;
+    &lt;label class="checkbox-container"&gt;
+        &lt;input type="checkbox"&gt;
+        &lt;span class="checkmark"&gt;&lt;/span&gt;
+        I agree to the terms
+    &lt;/label&gt;
+    &lt;label class="radio-container"&gt;
+        &lt;input type="radio" name="option"&gt;
+        &lt;span class="radiomark"&gt;&lt;/span&gt;
+        Option 1
+    &lt;/label&gt;
+&lt;/form&gt;
+        </code></pre>
+        <p>Penjelasan: Membuat checkbox dan radio button custom menggunakan CSS.</p>
+    </div>
+
+    <!-- Tutorial 4: SVG Graphics -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>4. SVG Graphics</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Embedding SVG --&gt;
+&lt;svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /&gt;
+&lt;/svg&gt;
+        </code></pre>
+        <p>Penjelasan: Menggunakan SVG (Scalable Vector Graphics) untuk grafik yang mudah diskalakan.</p>
+    </div>
+
+    <!-- Tutorial 5: Video Background -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>5. Background Video</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Adding a Background Video --&gt;
+&lt;div class="video-background"&gt;
+    &lt;video autoplay muted loop&gt;
+        &lt;source src="background.mp4" type="video/mp4"&gt;
+    &lt;/video&gt;
+&lt;/div&gt;
+        </code></pre>
+        <p>Penjelasan: Video sebagai latar belakang menggunakan tag `<video>` dengan atribut `autoplay`, `muted`, dan `loop`.</p>
+    </div>
+
+    <!-- Tutorial 6: HTML5 Canvas -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>6. HTML5 Canvas Drawing</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- HTML5 Canvas --&gt;
+&lt;canvas id="myCanvas" width="200" height="200"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(10, 10, 150, 100);
+&lt;/script&gt;
+        </code></pre>
+        <p>Penjelasan: Menggambar menggunakan tag `<canvas>` dan JavaScript.</p>
+    </div>
+
+    <!-- Tutorial 7: Data List for Input Suggestions -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>7. Input Suggestions with Datalist</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Datalist for Input Suggestions --&gt;
+&lt;input list="browsers" name="browser" id="browser"&gt;
+&lt;datalist id="browsers"&gt;
+    &lt;option value="Chrome"&gt;
+    &lt;option value="Firefox"&gt;
+    &lt;option value="Safari"&gt;
+&lt;/datalist&gt;
+        </code></pre>
+        <p>Penjelasan: Memberi saran input menggunakan `<datalist>`.</p>
+    </div>
+
+    <!-- Tutorial 8: Modal Popup -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>8. Modal Popup</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Modal Popup --&gt;
+&lt;button onclick="openModal()"&gt;Open Modal&lt;/button&gt;
+&lt;div id="myModal" class="modal"&gt;
+    &lt;div class="modal-content"&gt;
+        &lt;span class="close" onclick="closeModal()"&gt;&times;&lt;/span&gt;
+        &lt;p&gt;This is a modal popup!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    function openModal() { document.getElementById('myModal').style.display = 'block'; }
+    function closeModal() { document.getElementById('myModal').style.display = 'none'; }
+&lt;/script&gt;
+        </code></pre>
+        <p>Penjelasan: Membuat popup modal dengan HTML, CSS, dan JavaScript sederhana.</p>
+    </div>
+
+    <!-- Tutorial 9: HTML5 Audio Control -->
+    <div class="code-container">
+        <div class="code-header">
+            <h3>9. HTML5 Audio Player</h3>
+        </div>
+        <pre><code class="language-html">
+&lt;!-- Audio Player --&gt;
+&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    Your browser does not support the audio element.
+&lt;/audio&gt;
+        </code></pre>
+        <p>Penjelasan: Menambahkan audio player menggunakan tag `<audio>` dengan kontrol.</p>
+    </div>
+
+    <!-- Tutorial 10: Creating a Carousel -->
+<div class="code-container">
+    <div class="code-header">
+        <h3>10. Image Carousel</h3>
+    </div>
+    <pre><code class="language-html">
+&lt;!-- Image Carousel --&gt;
+&lt;div class="carousel"&gt;
+    &lt;div class="carousel-images"&gt;
+        &lt;img src="image1.jpg" alt="Image 1"&gt;
+        &lt;img src="image2.jpg" alt="Image 2"&gt;
+        &lt;img src="image3.jpg" alt="Image 3"&gt;
+    &lt;/div&gt;
+    &lt;button class="carousel-button prev" onclick="prevSlide()"&gt;&#10094;&lt;/button&gt;
+    &lt;button class="carousel-button next" onclick="nextSlide()"&gt;&#10095;&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-images img');
+    
+    function showSlide(index) {
+        slides.forEach((slide, i) =&gt; {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+    
+    showSlide(currentSlide);
+&lt;/script&gt;
+    </code></pre>
+    <p>Penjelasan: Membuat carousel gambar menggunakan JavaScript untuk menampilkan gambar satu per satu dengan tombol navigasi.</p>
+</div>
+</div>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <p>&copy; 2024 Anton Codder. Advanced HTML Tutorials.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/prism.js"></script>
+</body>
+</html>
