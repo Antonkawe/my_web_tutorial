@@ -9,15 +9,5 @@
       "src": "tiktok/*",
       "use": "@vercel/static"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/tiktok",
-      "dest": "/api/tiktok.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
   ]
 }
