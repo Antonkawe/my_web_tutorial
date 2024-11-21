@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlphaCoder</title>
-    <link rel="stylesheet" href="st.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="st.css">
 </head>
 <body>
     <header>
@@ -23,12 +23,45 @@
             <button type="submit"><i class="fas fa-paper-plane"></i> Proses Video</button>
         </form>     
         <div id="result" class="video-preview" style="display: none;">
-            <h2><i class="fas fa-video"></i> Judul Video</h2>
+            <h2 id="videoTitle"><i class="fas fa-video"></i> Judul Video</h2>
             <video id="videoPlayer" controls></video>
             <button id="downloadButton"><i class="fas fa-download"></i> Unduh Video</button>
         </div>        
         <div id="error" style="color: red; text-align: center; display: none;"></div>
     </div>
-    <script src="st.js"></script>
+    <script>
+        document.getElementById('downloadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = document.getElementById('url').value;
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoTitle = document.getElementById('videoTitle');
+            const downloadButton = document.getElementById('downloadButton');
+
+            resultDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`);
+                const data = await response.json();
+                if (response.ok && data.status === 'success') {
+                    const videoUrl = data.video.url;
+                    videoPlayer.src = videoUrl;
+                    videoTitle.textContent = data.video.title || 'Judul Tidak Tersedia';
+                    downloadButton.onclick = () => {
+                        window.location.href = `https://www.antoncodder.online/api/download?url=${encodeURIComponent(videoUrl)}`;
+                    };
+                    resultDiv.style.display = 'block';
+                } else {
+                    errorDiv.textContent = data.message || 'Terjadi kesalahan pada server.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Gagal memproses permintaan. Periksa koneksi Anda atau coba lagi.';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
