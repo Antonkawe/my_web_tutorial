@@ -11,7 +11,7 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     errorDiv.style.display = 'none';
 
     try {
-        const response = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`/api/tiktok2?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         if (data.status === 'success') {
             const videoUrl = data.video.url;
