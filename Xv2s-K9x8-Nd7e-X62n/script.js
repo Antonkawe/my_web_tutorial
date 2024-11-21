@@ -44,6 +44,10 @@ function showPython() {
     window.location.href = "python/py.html";
 }
 
+function show061288() {
+    window.location.href = "./tiktok/vkv0-w3zd-muiq6-2j5b.html";
+}
+
 function showScript() {
     window.location.href = "script/jumscrape.html";
 }

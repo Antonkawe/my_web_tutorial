@@ -65,3 +65,9 @@ code {
     word-wrap: normal;
     display: block;
 }
+
+.anton {
+    background: linear-gradient(45deg, #69C9D0, #EE1D52); 
+      -webkit-background-clip: text; 
+      color: transparent;
+}

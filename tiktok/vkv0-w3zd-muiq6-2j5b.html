@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaCoder</title>
+    <link rel="stylesheet" href="st.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>
+                <i class="fab fa-tiktok api-icon"></i>
+                TikTok Video Downloader
+            </h1>
+            <p>Masukkan URL TikTok Anda untuk mengunduh video tanpa watermark!</p>
+        </div>
+    </header>
+    <div class="container">
+        <form id="downloadForm" class="form-container">
+            <input type="text" id="url" placeholder="Masukkan URL TikTok" required>
+            <button type="submit"><i class="fas fa-paper-plane"></i> Proses Video</button>
+        </form>     
+        <div id="result" class="video-preview" style="display: none;">
+            <h2><i class="fas fa-video"></i> Judul Video</h2>
+            <video id="videoPlayer" controls></video>
+            <button id="downloadButton"><i class="fas fa-download"></i> Unduh Video</button>
+        </div>        
+        <div id="error" style="color: red; text-align: center; display: none;"></div>
+    </div>
+    <script src="st.js"></script>
+</body>
+</html>

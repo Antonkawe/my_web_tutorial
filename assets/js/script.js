@@ -196,6 +196,10 @@ function showTiktok() {
     window.location.href = "./unduh/index.html";
 }
 
+function showTiktokk() {
+    window.location.href = "./tiktok/vkv0-w3zd-muiq6-2j5b.html";
+}
+
 function copyCode() {
     const code = document.querySelector('.code-container pre code').innerText;
     navigator.clipboard.writeText(code).then(() => {
