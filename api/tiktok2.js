@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_KEY = 'AlphaCoder03';
+
 module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -7,23 +7,7 @@ module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') {
        return res.status(200).end();
     }
-    const { url, apikey } = req.query;
-    if (apikey !== API_KEY) {
-        return res.end(
-            JSON.stringify(
-                {
-                    status: 'error',
-                    errorCode: 'INVALID_API_KEY',
-                    message: 'API Key tidak valid.',
-                    timestamp: new Date().toISOString(),
-                    requestId: apikey || 'N/A',
-                    details: 'Periksa API Key yang Anda kirimkan dan pastikan itu benar.'
-                },
-                null,
-                2
-            )
-        );
-    }
+    const { url } = req.query;
     if (!url) {
         return res.end(
             JSON.stringify(

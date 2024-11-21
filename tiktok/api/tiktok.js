@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ status: 'error', message: 'URL tidak diberikan.' });
     }
     try {
-        const requestUrl = `https://www.antoncodder.online/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`;
+        const requestUrl = `https://www.antoncodder.online/api/tiktok2?url=${encodeURIComponent(url)}`;
         console.log('Requesting API:', requestUrl);
         const response = await fetch(requestUrl);
         const data = await response.json();
