@@ -20,44 +20,48 @@ module.exports = async (req, res) => {
         );
     }
     try {
-        client.keys('*:blocked', (err, keys) => {
-            if (err) throw err;
-
-            if (keys.length === 0) {
-                return res.end(
-                    JSON.stringify(
-                        {
-                            status: 'success',
-                            message: 'Tidak ada IP yang sedang diblokir.',
-                            data: [],
-                        },
-                        null,
-                        2
-                    )
-                );
-            }
-            const blockedIPs = [];
-            keys.forEach((key) => {
-                const ip = key.split(':')[0];
-                client.ttl(key, (err, ttl) => {
-                    if (err) throw err;
-                    blockedIPs.push({ ip, ttl });
-                    if (blockedIPs.length === keys.length) {
-                        return res.end(
-                            JSON.stringify(
-                                {
-                                    status: 'success',
-                                    message: 'Daftar IP yang sedang diblokir.',
-                                    data: blockedIPs,
-                                },
-                                null,
-                                2
-                            )
-                        );
-                    }
-                });
+        const keys = await new Promise((resolve, reject) => {
+            client.keys('*:blocked', (err, keys) => {
+                if (err) reject(err);
+                resolve(keys);
             });
         });
+        if (keys.length === 0) {
+            return res.end(
+                JSON.stringify(
+                    {
+                        status: 'success',
+                        message: 'Tidak ada IP yang sedang diblokir.',
+                        data: [],
+                    },
+                    null,
+                    2
+                )
+            );
+        }
+        const blockedIPs = await Promise.all(
+            keys.map(async (key) => {
+                const ip = key.split(':')[0];
+                const ttl = await new Promise((resolve, reject) => {
+                    client.ttl(key, (err, ttl) => {
+                        if (err) reject(err);
+                        resolve(ttl);
+                    });
+                });
+                return { ip, ttl };
+            })
+        );
+        return res.end(
+            JSON.stringify(
+                {
+                    status: 'success',
+                    message: 'Daftar IP yang sedang diblokir.',
+                    data: blockedIPs,
+                },
+                null,
+                2
+            )
+        );
     } catch (error) {
         return res.end(
             JSON.stringify(
