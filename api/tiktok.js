@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { createClient } = require('redis'); // Menggunakan redis v4
+const { createClient } = require('redis');
 const API_KEY = 'AlphaCoder03';
 const BLOCK_DURATION = 604800;
 const client = createClient();
@@ -12,11 +12,24 @@ module.exports = async (req, res) => {
     const { url, apikey } = req.query;
     const ip = req.ip;
 
-    // Pastikan Redis terhubung
-    await client.connect();
+    // Menyambungkan Redis di awal
+    try {
+        await client.connect();
+    } catch (err) {
+        return res.end(
+            JSON.stringify(
+                {
+                    status: 'error',
+                    message: 'Gagal terhubung ke Redis.',
+                    details: err.message,
+                },
+                null,
+                2
+            )
+        );
+    }
 
     try {
-        // Mengecek apakah IP diblokir
         const isBlocked = await client.get(`${ip}:blocked`);
         if (isBlocked) {
             return res.end(
@@ -58,20 +71,18 @@ module.exports = async (req, res) => {
             );
         }
 
-        // Menghitung jumlah permintaan yang dilakukan oleh IP ini
+        // Penanganan pembatasan permintaan dan pemblokiran IP
         const count = await client.incr(`${ip}:count`);
         if (count === 1) {
             client.expire(`${ip}:count`, 60);
         }
-
-        // Jika melebihi 10 permintaan, blokir IP
         if (count > 10) {
             await client.set(`${ip}:blocked`, '1', 'EX', BLOCK_DURATION);
             return res.end(
                 JSON.stringify(
                     {
                         status: 'error',
-                        message: 'Permintaan Anda terlalu berlebihan. IP Anda telah diblokir selama 1 minggu. Mohon patuhi batas penggunaan API untuk menghindari pemblokiran di masa mendatang.',
+                        message: 'Permintaan Anda terlalu berlebihan. IP Anda telah diblokir selama 1 minggu.',
                     },
                     null,
                     2
@@ -79,7 +90,7 @@ module.exports = async (req, res) => {
             );
         }
 
-        // Memproses permintaan untuk mengambil video dari TikTok
+        // Mengambil data video secara asinkron
         try {
             const response = await axios.get('https://tikwm.com/api/', { params: { url } });
 
@@ -103,7 +114,6 @@ module.exports = async (req, res) => {
                     )
                 );
             }
-
             return res.end(
                 JSON.stringify(
                     {
@@ -116,7 +126,7 @@ module.exports = async (req, res) => {
                 )
             );
         } catch (error) {
-            console.error('Error getting video:', error);
+            console.error('Error saat mengambil video:', error);
             return res.end(
                 JSON.stringify(
                     {
@@ -130,7 +140,7 @@ module.exports = async (req, res) => {
             );
         }
     } catch (error) {
-        console.error('Error processing request:', error);
+        console.error('Error saat memproses permintaan:', error);
         return res.end(
             JSON.stringify(
                 {
@@ -142,8 +152,5 @@ module.exports = async (req, res) => {
                 2
             )
         );
-    } finally {
-        // Pastikan untuk menutup koneksi Redis setelah operasi selesai
-        await client.quit();
     }
 };
