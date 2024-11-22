@@ -3,20 +3,29 @@ const redis = require('redis');
 const API_KEY = 'AlphaCoder03';
 const BLOCK_DURATION = 604800;
 const client = redis.createClient();
+
 client.on('error', (err) => {
     console.error('Redis error: ', err);
+});
+
+// Pastikan Redis sudah siap
+client.on('ready', () => {
+    console.log('Redis client connected and ready');
 });
 
 module.exports = async (req, res) => {
     const { url, apikey } = req.query;
     const ip = req.ip;
+
     try {
+        // Mengecek apakah IP diblokir
         const isBlocked = await new Promise((resolve, reject) => {
             client.get(`${ip}:blocked`, (err, data) => {
                 if (err) reject(err);
                 resolve(data);
             });
         });
+
         if (isBlocked) {
             return res.end(
                 JSON.stringify(
@@ -29,6 +38,7 @@ module.exports = async (req, res) => {
                 )
             );
         }
+
         if (apikey !== API_KEY) {
             return res.end(
                 JSON.stringify(
@@ -42,6 +52,7 @@ module.exports = async (req, res) => {
                 )
             );
         }
+
         if (!url) {
             return res.end(
                 JSON.stringify(
@@ -54,15 +65,21 @@ module.exports = async (req, res) => {
                 )
             );
         }
+
+        // Menghitung jumlah permintaan yang dilakukan oleh IP ini
         const count = await new Promise((resolve, reject) => {
             client.incr(`${ip}:count`, (err, count) => {
                 if (err) reject(err);
                 resolve(count);
             });
         });
+
+        // Jika permintaan pertama, set waktu expire
         if (count === 1) {
             client.expire(`${ip}:count`, 60);
         }
+
+        // Jika melebihi 10 permintaan, blokir IP
         if (count > 10) {
             client.set(`${ip}:blocked`, '1', 'EX', BLOCK_DURATION);
             return res.end(
@@ -76,8 +93,11 @@ module.exports = async (req, res) => {
                 )
             );
         }
+
+        // Memproses permintaan untuk mengambil video dari TikTok
         try {
             const response = await axios.get('https://tikwm.com/api/', { params: { url } });
+
             if (response.data?.data?.play) {
                 return res.end(
                     JSON.stringify(
@@ -98,6 +118,7 @@ module.exports = async (req, res) => {
                     )
                 );
             }
+
             return res.end(
                 JSON.stringify(
                     {
@@ -110,6 +131,7 @@ module.exports = async (req, res) => {
                 )
             );
         } catch (error) {
+            console.error('Error getting video:', error);
             return res.end(
                 JSON.stringify(
                     {
@@ -123,6 +145,7 @@ module.exports = async (req, res) => {
             );
         }
     } catch (error) {
+        console.error('Error processing request:', error);
         return res.end(
             JSON.stringify(
                 {
