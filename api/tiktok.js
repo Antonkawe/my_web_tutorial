@@ -1,31 +1,23 @@
 const axios = require('axios');
-const redis = require('redis');
+const { createClient } = require('redis'); // Menggunakan redis v4
 const API_KEY = 'AlphaCoder03';
 const BLOCK_DURATION = 604800;
-const client = redis.createClient();
+const client = createClient();
 
 client.on('error', (err) => {
     console.error('Redis error: ', err);
-});
-
-// Pastikan Redis sudah siap
-client.on('ready', () => {
-    console.log('Redis client connected and ready');
 });
 
 module.exports = async (req, res) => {
     const { url, apikey } = req.query;
     const ip = req.ip;
 
+    // Pastikan Redis terhubung
+    await client.connect();
+
     try {
         // Mengecek apakah IP diblokir
-        const isBlocked = await new Promise((resolve, reject) => {
-            client.get(`${ip}:blocked`, (err, data) => {
-                if (err) reject(err);
-                resolve(data);
-            });
-        });
-
+        const isBlocked = await client.get(`${ip}:blocked`);
         if (isBlocked) {
             return res.end(
                 JSON.stringify(
@@ -67,21 +59,14 @@ module.exports = async (req, res) => {
         }
 
         // Menghitung jumlah permintaan yang dilakukan oleh IP ini
-        const count = await new Promise((resolve, reject) => {
-            client.incr(`${ip}:count`, (err, count) => {
-                if (err) reject(err);
-                resolve(count);
-            });
-        });
-
-        // Jika permintaan pertama, set waktu expire
+        const count = await client.incr(`${ip}:count`);
         if (count === 1) {
             client.expire(`${ip}:count`, 60);
         }
 
         // Jika melebihi 10 permintaan, blokir IP
         if (count > 10) {
-            client.set(`${ip}:blocked`, '1', 'EX', BLOCK_DURATION);
+            await client.set(`${ip}:blocked`, '1', 'EX', BLOCK_DURATION);
             return res.end(
                 JSON.stringify(
                     {
@@ -157,5 +142,8 @@ module.exports = async (req, res) => {
                 2
             )
         );
+    } finally {
+        // Pastikan untuk menutup koneksi Redis setelah operasi selesai
+        await client.quit();
     }
 };
