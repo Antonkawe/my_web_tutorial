@@ -1,0 +1,120 @@
+/* Tema Gelap */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #1e1e1e;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #333333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+header img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #ff5252;
+  margin: 0;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin-top: 20px;
+  color: #ff5252;
+}
+
+.hero h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.hero ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+.hero li {
+  margin-bottom: 10px;
+}
+
+/* Input dan Tombol */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+#search {
+  width: 300px;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #333333;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+#search:focus {
+  border-color: #ff5252;
+  box-shadow: 0 0 10px #ff5252;
+}
+
+#searchBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #ff5252;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+#searchBtn:hover {
+  background-color: #ff7575;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  background-color: #1e1e1e;
+  color: #888888;
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #333333;
+  width: 100%;
+}
+
+footer a {
+  color: #ff5252;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
