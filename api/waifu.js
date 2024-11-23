@@ -45,10 +45,11 @@ module.exports = async (req, res) => {
     const redisKey = `rate_limit:${clientIP}`;
     const currentRequests = await redis.incr(redisKey);
     if (currentRequests === 1) {
-      await redis.pexpire(redisKey, LIMIT_WINDOW);
+      await redis.expire(redisKey, LIMIT_WINDOW / 1000);
     }
     if (currentRequests > REQUEST_LIMIT) {
-      await redis.set(`blocked:${clientIP}`, true, "EX", BLOCK_DURATION);
+      await redis.set(`blocked:${clientIP}`, true);
+      await redis.expire(`blocked:${clientIP}`, BLOCK_DURATION);
       return res.end(
         JSON.stringify(
           {
