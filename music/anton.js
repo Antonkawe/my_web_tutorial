@@ -9,11 +9,11 @@ searchBtn.addEventListener("click", async () => {
 
   try {
     const response = await fetch(`/api/youtube?apikey=AlphaCoder03&query=${encodeURIComponent(query)}`);
-    const data = await response.json();
+    const data = response.data.data;
 
     resultsDiv.innerHTML = "";
 
-    if (data.status === 'success' && Array.isArray(data.data) && data.data.length > 0) {
+    if (data && data.length > 0) {
       data.data.forEach((video) => {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
