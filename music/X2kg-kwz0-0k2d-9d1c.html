@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Search Player</title>
+  <title>Music Player</title>
   <style>
-    /* Tema Gelap dengan Animasi */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #121212;
@@ -21,226 +20,96 @@
     header {
       background-color: #1e1e1e;
       padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid #333333;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       width: 100%;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header img {
-      width: 40px;
-      margin-right: 10px;
+      text-align: center;
     }
 
     header h1 {
+      margin: 0;
       font-size: 24px;
       color: #ff5252;
-      margin: 0;
-      text-transform: uppercase;
     }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-top: 20px;
-      color: #ff5252;
-      animation: fadeIn 1.5s;
-    }
-
-    .hero h2 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .hero ul {
-      list-style: none;
-      padding: 0;
-      font-size: 14px;
-      color: #cccccc;
-      margin-bottom: 30px;
-    }
-
-    .hero li {
-      margin-bottom: 10px;
-    }
-
-    /* Input dan Tombol */
     .search-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
+      margin: 20px 0;
     }
 
     #search {
-      width: 300px;
       padding: 10px;
+      width: 300px;
       border-radius: 25px;
-      border: 1px solid #333333;
-      background-color: #1e1e1e;
-      color: #ffffff;
+      border: none;
       outline: none;
       font-size: 16px;
-      transition: all 0.3s;
-    }
-
-    #search:focus {
-      border-color: #ff5252;
-      box-shadow: 0 0 10px #ff5252;
     }
 
     #searchBtn {
       padding: 10px 20px;
+      margin-left: 10px;
+      background-color: #ff5252;
       border: none;
       border-radius: 25px;
-      background-color: #ff5252;
-      color: #ffffff;
+      color: white;
       cursor: pointer;
       font-size: 16px;
-      transition: all 0.3s;
     }
 
-    #searchBtn:hover {
-      background-color: #ff7575;
-    }
-
-    /* Hasil Pencarian */
-    #results {
+    #playerContainer {
       margin-top: 20px;
-      width: 90%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-    }
-
-    .video-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #1e1e1e;
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s;
-      text-align: center;
-    }
-
-    .video-item img {
       width: 100%;
-      border-radius: 5px;
+      max-width: 600px;
     }
 
-    .video-item span {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-
-    .video-item:hover {
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    footer {
-      margin-top: auto;
-      background-color: #1e1e1e;
-      color: #888888;
-      text-align: center;
-      padding: 10px;
-      border-top: 1px solid #333333;
+    iframe {
       width: 100%;
-    }
-
-    footer a {
-      color: #ff5252;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Animasi */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      height: 60px; /* Tinggi untuk fokus audio saja */
+      border: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
-    <h1>YouTube Search Player</h1>
+    <h1>Music Player</h1>
   </header>
-  <div class="hero">
-    <h2>Catatan:</h2>
-    <ul>
-      <li>Anda bisa memainkan musik di latar belakang.</li>
-      <li>Tanpa iklan, dan Anda bisa cari musik sepuasnya.</li>
-      <li>Nikmati pengalaman pencarian musik tanpa gangguan!</li>
-    </ul>
-  </div>
+
   <div class="search-container">
-    <input type="text" id="search" placeholder="Cari musik favorit Anda..." />
+    <input type="text" id="search" placeholder="Cari musik favorit Anda...">
     <button id="searchBtn">Cari</button>
   </div>
-  <div id="results"></div>
-  <footer>
-    Dibuat dengan ❤️ oleh <a href="#">AntonThomzz</a>. Semua hak cipta © 2024.
-  </footer>
+
+  <div id="playerContainer"></div>
+
   <script>
     const searchInput = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
-    const resultsDiv = document.getElementById("results");
+    const playerContainer = document.getElementById("playerContainer");
 
     searchBtn.addEventListener("click", async () => {
       const query = searchInput.value.trim();
       if (!query) {
-        alert("Masukkan kata kunci pencarian!");
+        alert("Masukkan kata kunci!");
         return;
       }
 
-      const apiKey = "AIzaSyDXc8z_dNA04L6J42deJyH3ObPeKvOLizw"; // Ganti dengan API Key Anda
-      const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&q=${encodeURIComponent(query)}&key=${apiKey}`;
+      const apiKey = "YOUR_API_KEY"; // Ganti dengan API Key kamu
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(query)}&key=${apiKey}`;
 
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        resultsDiv.innerHTML = "";
-
         if (data.items && data.items.length > 0) {
-          data.items.forEach((video) => {
-            const videoItem = document.createElement("div");
-            videoItem.className = "video-item";
-            videoItem.innerHTML = `
-              <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}" />
-              <span>${video.snippet.title}</span>
-            `;
-            videoItem.addEventListener("click", () => {
-              const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
-              window.open(videoUrl, "_blank");
-            });
-            resultsDiv.appendChild(videoItem);
-          });
-        } else {
-          resultsDiv.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
-        }
+          const videoId = data.items[0].id.videoId;
 
-        // Mengubah judul
-        document.title = `Hasil untuk "${query}"`;
+          // Ganti isi player dengan video baru
+          playerContainer.innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&modestbranding=1" allow="autoplay"></iframe>
+          `;
+        } else {
+          alert("Video tidak ditemukan!");
+        }
       } catch (error) {
-        alert("Terjadi kesalahan saat mencari video.");
+        alert("Terjadi kesalahan saat mengambil data.");
         console.error(error);
       }
     });
