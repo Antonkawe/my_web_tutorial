@@ -12,27 +12,22 @@ searchBtn.addEventListener("click", async () => {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-
     resultsDiv.innerHTML = "";
-    if (data.status === 'success' && Array.isArray(data.result) && data.result.length > 0) {
-      // Mengiterasi setiap video dalam array data.result
-      data.result.forEach((video) => {
+    if (data.status === 'success' && Array.isArray(data.data) && data.data.length > 0) {
+      data.data.forEach((video) => {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
         videoItem.innerHTML = `
           <img src="${video.thumbnail}" alt="${video.title}" />
           <span>${video.title}</span>
         `;
-
-        // Pastikan data musik ada di dalam video.music_url atau video.data?.music_url
-        const musicUrl = video.url || video.data?.url; // Sesuaikan dengan struktur respons
-
+        const musicUrl = video.url || video.data?.url;
         videoItem.addEventListener("click", () => {
           if (musicUrl) {
             const audioPlayer = new Audio(musicUrl);
             audioPlayer.loop = true;
             audioPlayer.play();
-            player.style.display = "none"; // Sembunyikan player
+            player.style.display = "none";
           } else {
             alert("URL musik tidak ditemukan!");
           }
