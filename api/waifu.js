@@ -1,12 +1,14 @@
-const Redis = require("ioredis");
 const axios = require("axios");
-const redis = new Redis(process.env.REDIS_URL);
+const { Redis } = require('@upstash/redis');
+const redis = new Redis({
+  url: 'https://gentle-lamprey-42227.upstash.io',
+  token: 'AaTzAAIjcDE0Y2UwY2IzNDZmZjE0NDMyYWMxNDA3ZThhM2NiYjFmY3AxMA',
+});
 const API_KEY = "AlphaCoder03";
 const BASE_URL = "https://api.waifu.im/search/";
 const LIMIT_WINDOW = 60 * 1000;
 const REQUEST_LIMIT = 10;
 const BLOCK_DURATION = 60 * 60 * 24 * 7;
-
 module.exports = async (req, res) => {
     const clientIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     const { tags, apikey } = req.query;
