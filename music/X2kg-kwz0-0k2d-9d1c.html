@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube Music Player</title>
   <style>
+    /* Tema Gelap */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #121212;
@@ -38,13 +39,37 @@
       color: #ff5252;
       margin: 0;
     }
+    
+        /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-top: 20px;
+      color: #ff5252;
+    }
+
+    .hero h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .hero ul {
+      list-style: none;
+      padding: 0;
+      font-size: 14px;
+      color: #cccccc;
+      margin-bottom: 30px;
+    }
+
+    .hero li {
+      margin-bottom: 10px;
+    }
 
     .search-container {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      width: 100%;
+      margin: 20px 0;
     }
 
     #search {
@@ -81,44 +106,38 @@
 
     #results {
       margin-top: 20px;
-      width: 90%;
+      width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 15px;
+      padding: 0 20px;
     }
 
-    .video-item {
+    .audio-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       background-color: #1e1e1e;
-      padding: 10px;
+      padding: 20px;
       border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
-    .video-item img {
+    .audio-item img {
       width: 100%;
       border-radius: 5px;
     }
 
-    .video-item span {
-      margin-top: 10px;
-      font-size: 14px;
+    .audio-item h3 {
+      margin: 15px 0;
+      font-size: 18px;
+      color: #ff5252;
       text-align: center;
     }
 
-    .video-item:hover {
-      transform: scale(1.05);
-    }
-
-    #player {
-      margin-top: 20px;
-      display: none;
+    .audio-item audio {
       width: 100%;
-      max-width: 640px;
-      height: 360px;
+      margin-top: 10px;
     }
 
     footer {
@@ -145,14 +164,21 @@
 <body>
   <header>
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
-    <h1>YouTube Music Player</h1>
+    <h1>YouTube Search Player</h1>
   </header>
+  <div class="hero">
+    <h2>Catatan:</h2>
+    <ul>
+      <li>Anda bisa memainkan musik di latar belakang.</li>
+      <li>Tanpa iklan, dan Anda bisa cari musik sepuasnya.</li>
+      <li>Nikmati pengalaman pencarian musik tanpa gangguan!</li>
+    </ul>
+  </div>
   <div class="search-container">
     <input type="text" id="search" placeholder="Cari musik favorit Anda..." />
     <button id="searchBtn">Cari</button>
   </div>
   <div id="results"></div>
-  <div id="player"></div>
   <footer>
     Dibuat dengan ❤️ oleh <a href="#">AntonThomzz</a>. Semua hak cipta © 2024.
   </footer>
@@ -160,9 +186,6 @@
     const searchInput = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
     const resultsDiv = document.getElementById("results");
-    const playerDiv = document.getElementById("player");
-
-    let player;
 
     searchBtn.addEventListener("click", async () => {
       const query = searchInput.value.trim();
@@ -171,8 +194,8 @@
         return;
       }
 
-      const apiKey = "AIzaSyDXc8z_dNA04L6J42deJyH3ObPeKvOLizw";
-      const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${encodeURIComponent(query)}&key=${apiKey}`;
+      // Menggunakan API backend untuk mendapatkan URL audio
+      const apiUrl = `https://api.example.com/youtube/audio?search=${encodeURIComponent(query)}`;
 
       try {
         const response = await fetch(apiUrl);
@@ -180,53 +203,28 @@
 
         resultsDiv.innerHTML = "";
 
-        if (data.items && data.items.length > 0) {
-          data.items.forEach((video) => {
-            const videoItem = document.createElement("div");
-            videoItem.className = "video-item";
-            videoItem.innerHTML = `
-              <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}" />
-              <span>${video.snippet.title}</span>
-              <button>Play</button>
+        if (data.results && data.results.length > 0) {
+          data.results.forEach((track) => {
+            const audioItem = document.createElement("div");
+            audioItem.className = "audio-item";
+            audioItem.innerHTML = `
+              <img src="${track.thumbnail}" alt="${track.title}" />
+              <h3>${track.title}</h3>
+              <audio controls>
+                <source src="${track.audioUrl}" type="audio/mpeg">
+                Browser Anda tidak mendukung pemutar audio.
+              </audio>
             `;
-            videoItem.querySelector("button").addEventListener("click", () => {
-              if (!player) {
-                player = new YT.Player('player', {
-                  height: '360',
-                  width: '640',
-                  videoId: video.id.videoId,
-                  events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                  }
-                });
-              } else {
-                player.loadVideoById(video.id.videoId);
-              }
-              playerDiv.style.display = 'block';
-            });
-            resultsDiv.appendChild(videoItem);
+            resultsDiv.appendChild(audioItem);
           });
         } else {
           resultsDiv.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
         }
       } catch (error) {
-        alert("Terjadi kesalahan saat mencari video.");
+        alert("Terjadi kesalahan saat mencari musik.");
         console.error(error);
       }
     });
-
-    function onPlayerReady(event) {
-      event.target.playVideo();
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.PLAYING) {
-        console.log('Video sedang diputar');
-      }
-    }
   </script>
-
-  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
