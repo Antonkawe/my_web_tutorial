@@ -4,5 +4,22 @@
       "source": "/:path*",
       "destination": "/:path*.html"
     }
+  ],
+  "headers": [
+    {
+      "source": "/:path*.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "middleware": [
+    {
+      "source": "/:path*.html",
+      "function": "middleware"
+    }
   ]
 }
