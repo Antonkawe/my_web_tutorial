@@ -14,7 +14,8 @@ searchBtn.addEventListener("click", async () => {
     const data = await response.json();
 
     resultsDiv.innerHTML = "";
-    if (data && data.result && data.result.length > 0) {
+    if (data.status === 'success' && Array.isArray(data.result) && data.result.length > 0) {
+      // Mengiterasi setiap video dalam array data.result
       data.result.forEach((video) => {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
@@ -23,8 +24,8 @@ searchBtn.addEventListener("click", async () => {
           <span>${video.title}</span>
         `;
 
-        // Pastikan untuk menyesuaikan path URL musik sesuai dengan struktur respon API
-        const musicUrl = data.embedUrl || data[0].embedUrl; // Sesuaikan dengan struktur yang benar
+        // Pastikan data musik ada di dalam video.music_url atau video.data?.music_url
+        const musicUrl = video.url || video.data?.url; // Sesuaikan dengan struktur respons
 
         videoItem.addEventListener("click", () => {
           if (musicUrl) {
