@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dokumentasi API AlphaCoder untuk penggunaan TikTok Downloader">
+    <meta name="keywords" content="API, TikTok Downloader, Dokumentasi API, AlphaCoder">
+    <meta name="author" content="AlphaCoder">
+    <title>API - AlphaCoder Documentation</title>
+    <link href="../images/xHn2-Nq9m-Xu2n-Jwio.jpg" rel="icon">
+    <link href="../images/xHn2-Nq9m-Xu2n-Jwio.jpg" rel="apple-touch-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./apis/index.css">
+</head>
+<body>
+<header>
+    <h1>AlphaCoder API Documentation</h1>
+    <p>Dokumentasi API untuk Unduh Video TikTok Tanpa Watermark</p>
+</header>
+<div class="container">
+    <div class="api-section">
+        <div class="api-header">API Endpoint</div>
+        <div class="api-description">
+            Untuk mengunduh video TikTok tanpa watermark, gunakan endpoint berikut:
+        </div>
+        <div class="code-container">
+            <pre><code>GET https://www.antoncodder.online/api/tiktok?apikey={API_KEYS}&url={TIKTOK_URL}</code></pre>
+        </div>
+    </div>
+    <div class="api-section">
+        <div class="api-header">Request Parameters</div>
+        <div class="api-description">
+            Berikut adalah parameter yang dapat digunakan dalam permintaan API:
+        </div>
+        <div class="code-container">
+            <pre><code>url (required): URL video TikTok yang ingin diunduh.</code></pre>
+        </div>
+    </div>
+    <div class="api-section">
+        <div class="api-header">API Key</div>
+        <div class="api-description">
+            Anda memerlukan API Key untuk mengakses endpoint ini. Masukkan API Key Anda di bawah:
+        </div>
+        <div class="api-key-section">
+            <label for="apikey" class="api-key-label">Masukkan API Key:</label>
+            <div class="show-password">
+                <input type="password" id="apikey" class="api-key-input" value="AlphaCoder03" readonly>
+                <i id="toggleApiKey" class="fas fa-eye" style="margin:-5px;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="api-section">
+        <div class="api-header">Response</div>
+        <div class="api-description">
+            API ini akan mengembalikan respons JSON dengan informasi video:
+        </div>
+        <div class="code-container">
+            <pre><code>
+{
+  "status": "success",
+  "project": "AlphaCoder",
+  "owner": "Anton",
+  "video": {
+    "id": "ID_VIDEOS",
+    "region": "REGION_VIDEOS",
+    "title": "TITLE_VIDEOS",
+    "url": "https://example.com/video",
+    "duration": DURATION_VIDEOS
+  }
+}
+            </code></pre>
+        </div>
+    </div>
+    <div class="api-section">
+        <div class="api-header">Contoh Penggunaan</div>
+        <div class="api-description">
+            Berikut adalah contoh cara menggunakan API ini dengan JavaScript menggunakan <strong>fetch</strong>:
+        </div>
+        <div class="code-container">
+            <pre><code>
+fetch('https://www.antoncodder.online/api/tiktok?apikey=AlphaCoder03&url=https://www.tiktok.com/example')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+            </code></pre>
+        </div>
+    </div>
+    <div class="api-section">
+        <div class="api-header">Kebijakan Penggunaan</div>
+        <div class="api-description">
+            Harap perhatikan kebijakan penggunaan berikut saat menggunakan API ini:
+        </div>
+        <ul>
+            <li>Gunakan API ini hanya untuk tujuan legal dan sesuai dengan hukum yang berlaku.</li>
+            <li>Jangan membagikan API Key Anda kepada pihak lain untuk mencegah penyalahgunaan.</li>
+            <li>Batasi penggunaan sesuai dengan batas rate-limit API.</li>
+            <li>AlphaCoder tidak bertanggung jawab atas penyalahgunaan layanan ini oleh pihak ketiga.</li>
+        </ul>
+    </div>
+</div>
+<script src="./apis/index.js"></script>
+</body>
+</html>

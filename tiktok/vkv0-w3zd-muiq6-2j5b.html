@@ -3,65 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlphaCoder</title>
+    <meta name="description" content="Unduh video TikTok tanpa watermark dengan cepat dan mudah!">
+    <meta name="keywords" content="TikTok Downloader, Unduh TikTok, Video tanpa watermark">
+    <meta name="author" content="AlphaCoder">
+    <title>TikTok Video Downloader</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/favicon.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="st.css">
 </head>
 <body>
     <header>
-        <div class="header-container">
-            <h1>
-                <i class="fab fa-tiktok api-icon"></i>
-                TikTok Video Downloader
-            </h1>
-            <p>Masukkan URL TikTok Anda untuk mengunduh video tanpa watermark!</p>
-        </div>
+        <h1><i class="fab fa-tiktok"></i> TikTok Downloader</h1>
+        <p>Unduh video TikTok favorit Anda tanpa watermark!</p>
     </header>
-    <div class="container">
-        <form id="downloadForm" class="form-container">
+    <div class="sidebar">
+        <a href="#unduh"><i class="fas fa-download"></i> Unduh</a>
+        <a class="fas fa-code" href="#" onclick="showApi()"></i> API</a>
+    </div>
+    <div id="unduh" class="container">
+        <div class="note">
+            Harap diperhatikan: Gunakan layanan ini hanya untuk konten yang Anda miliki atau memiliki izin untuk diunduh.
+        </div>
+        <form id="downloadForm">
             <input type="text" id="url" placeholder="Masukkan URL TikTok" required>
             <button type="submit"><i class="fas fa-paper-plane"></i> Proses Video</button>
-        </form>     
+        </form>
         <div id="result" class="video-preview" style="display: none;">
             <h2 id="videoTitle"><i class="fas fa-video"></i> Judul Video</h2>
             <video id="videoPlayer" controls></video>
             <button id="downloadButton"><i class="fas fa-download"></i> Unduh Video</button>
-        </div>        
+        </div>
         <div id="error" style="color: red; text-align: center; display: none;"></div>
     </div>
-    <script>
-        document.getElementById('downloadForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const url = document.getElementById('url').value;
-            const resultDiv = document.getElementById('result');
-            const errorDiv = document.getElementById('error');
-            const videoPlayer = document.getElementById('videoPlayer');
-            const videoTitle = document.getElementById('videoTitle');
-            const downloadButton = document.getElementById('downloadButton');
-
-            resultDiv.style.display = 'none';
-            errorDiv.style.display = 'none';
-
-            try {
-                const response = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`);
-                const data = await response.json();
-                if (response.ok && data.status === 'success') {
-                    const videoUrl = data.video.url;
-                    videoPlayer.src = videoUrl;
-                    videoTitle.textContent = data.video.title || 'Judul Tidak Tersedia';
-                    downloadButton.onclick = () => {
-                        window.location.href = `https://www.antoncodder.online/api/download?url=${encodeURIComponent(videoUrl)}`;
-                    };
-                    resultDiv.style.display = 'block';
-                } else {
-                    errorDiv.textContent = data.message || 'Terjadi kesalahan pada server.';
-                    errorDiv.style.display = 'block';
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Gagal memproses permintaan. Periksa koneksi Anda atau coba lagi.';
-                errorDiv.style.display = 'block';
-            }
-        });
-    </script>
+    
+    <footer>
+        <p>&copy; 2024 <a href="https://www.antoncodder.online" target="_blank">AlphaCoder</a>. Semua Hak Dilindungi.</p>
+    </footer>
+    <script src="st.js"></script>
+    <script src="an.js"></script>
 </body>
 </html>

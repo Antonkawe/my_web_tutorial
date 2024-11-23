@@ -6,14 +6,12 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     const videoPlayer = document.getElementById('videoPlayer');
     const videoTitle = document.getElementById('videoTitle');
     const downloadButton = document.getElementById('downloadButton');
-
     resultDiv.style.display = 'none';
     errorDiv.style.display = 'none';
-
     try {
-        const response = await fetch(`/api/tiktok2?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`);
         const data = await response.json();
-        if (data.status === 'success') {
+        if (response.ok && data.status === 'success') {
             const videoUrl = data.video.url;
             videoPlayer.src = videoUrl;
             videoTitle.textContent = data.video.title || 'Judul Tidak Tersedia';
@@ -22,11 +20,14 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
             };
             resultDiv.style.display = 'block';
         } else {
-            errorDiv.textContent = data.message;
+            errorDiv.textContent = data.message || 'Terjadi kesalahan pada server.';
             errorDiv.style.display = 'block';
         }
     } catch (error) {
-        errorDiv.textContent = 'Gagal memproses permintaan. Periksa koneksi Anda atau coba lagi.';
+        errorDiv.textContent = 'Untuk Layanan Paket Gratis Mungkin Sedang Gangguan. Silahkan Coba Lagi Lain Waktu😊';
         errorDiv.style.display = 'block';
     }
+});
+document.getElementById('videoPlayer').addEventListener('click', (e) => {
+    e.target.requestFullscreen();
 });
