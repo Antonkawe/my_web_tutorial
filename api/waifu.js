@@ -7,12 +7,14 @@ const redis = new Redis({
 const API_KEY = "AlphaCoder03";
 const BASE_URL = "https://api.waifu.im/search/";
 const LIMIT_WINDOW = 60 * 1000;
-const REQUEST_LIMIT = 10;
+const REQUEST_LIMIT = 5;
 const BLOCK_DURATION = 60 * 60 * 24 * 7;
+
 module.exports = async (req, res) => {
     const clientIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    const { tags, apikey } = req.query;
+    console.log(`Client IP: ${clientIP}`);
     const isBlocked = await redis.get(`blocked:${clientIP}`);
+    console.log(`Is Blocked: ${isBlocked}`);
     if (isBlocked) {
         return res.end(
             JSON.stringify(
@@ -26,6 +28,7 @@ module.exports = async (req, res) => {
             )
         );
     }
+    const { tags, apikey } = req.query;
     if (apikey !== API_KEY) {
         return res.end(
             JSON.stringify(
@@ -41,17 +44,20 @@ module.exports = async (req, res) => {
     }
     const redisKey = `rate_limit:${clientIP}`;
     const currentRequests = await redis.incr(redisKey);
+    console.log(`Current Requests: ${currentRequests}`);
     if (currentRequests === 1) {
         await redis.pexpire(redisKey, LIMIT_WINDOW);
+        console.log(`Setting expiration for ${redisKey} with ${LIMIT_WINDOW} ms`);
     }
     if (currentRequests > REQUEST_LIMIT) {
         await redis.set(`blocked:${clientIP}`, true, "EX", BLOCK_DURATION);
+        console.log(`Blocked IP: ${clientIP} for ${BLOCK_DURATION} seconds`);
         return res.end(
             JSON.stringify(
                 {
                     status: "error",
                     errorCode: "RATE_LIMIT_EXCEEDED",
-                    message: `Anda diblokir karena terlalu banyak permintaan. Hubungi administrator jika ini adalah kesalahan.`,
+                    message: `Anda diblokir karena terlalu banyak permintaan. Hubungi developers jika ini adalah kesalahan.`,
                 },
                 null,
                 2
