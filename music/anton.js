@@ -7,12 +7,12 @@ searchBtn.addEventListener("click", async () => {
   const query = searchInput.value.trim();
   if (!query) return alert("Masukkan kata kunci pencarian!");
 
-  const apiUrl = `/api/youtube?apikey=AlphaCoder03&query=${encodeURIComponent(query)}`;
-
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(`/api/youtube?apikey=AlphaCoder03&query=${encodeURIComponent(query)}`);
     const data = await response.json();
+
     resultsDiv.innerHTML = "";
+
     if (data.status === 'success' && Array.isArray(data.data) && data.data.length > 0) {
       data.data.forEach((video) => {
         const videoItem = document.createElement("div");
@@ -21,13 +21,16 @@ searchBtn.addEventListener("click", async () => {
           <img src="${video.thumbnail}" alt="${video.title}" />
           <span>${video.title}</span>
         `;
-        const musicUrl = video.url || video.data?.url;
+
+        // Perbaiki bagian ini untuk mendapatkan URL musik
+        const musicUrl = video.url;
+
         videoItem.addEventListener("click", () => {
           if (musicUrl) {
             const audioPlayer = new Audio(musicUrl);
             audioPlayer.loop = true;
             audioPlayer.play();
-            player.style.display = "none";
+            player.style.display = "none"; // Sembunyikan player
           } else {
             alert("URL musik tidak ditemukan!");
           }
