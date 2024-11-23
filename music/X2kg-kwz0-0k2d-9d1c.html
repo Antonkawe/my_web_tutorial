@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Music Player</title>
+  <title>YouTube Search Player</title>
   <style>
-    /* Tema Gelap */
+    /* Tema Gelap dengan Animasi */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #121212;
@@ -27,6 +27,9 @@
       border-bottom: 1px solid #333333;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header img {
@@ -38,13 +41,15 @@
       font-size: 24px;
       color: #ff5252;
       margin: 0;
+      text-transform: uppercase;
     }
-    
-        /* Hero Section */
+
+    /* Hero Section */
     .hero {
       text-align: center;
       margin-top: 20px;
       color: #ff5252;
+      animation: fadeIn 1.5s;
     }
 
     .hero h2 {
@@ -64,12 +69,13 @@
       margin-bottom: 10px;
     }
 
+    /* Input dan Tombol */
     .search-container {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      margin: 20px 0;
+      width: 100%;
     }
 
     #search {
@@ -104,42 +110,42 @@
       background-color: #ff7575;
     }
 
+    /* Hasil Pencarian */
     #results {
       margin-top: 20px;
-      width: 100%;
+      width: 90%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 15px;
-      padding: 0 20px;
     }
 
-    .audio-item {
+    .video-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       background-color: #1e1e1e;
-      padding: 20px;
+      padding: 10px;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+      text-align: center;
     }
 
-    .audio-item img {
+    .video-item img {
       width: 100%;
       border-radius: 5px;
     }
 
-    .audio-item h3 {
-      margin: 15px 0;
-      font-size: 18px;
-      color: #ff5252;
-      text-align: center;
-    }
-
-    .audio-item audio {
-      width: 100%;
+    .video-item span {
       margin-top: 10px;
+      font-size: 14px;
     }
 
+    .video-item:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
     footer {
       margin-top: auto;
       background-color: #1e1e1e;
@@ -158,6 +164,16 @@
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    /* Animasi */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   </style>
 </head>
@@ -194,8 +210,8 @@
         return;
       }
 
-      // Menggunakan API backend untuk mendapatkan URL audio
-      const apiUrl = `https://api.example.com/youtube/audio?search=${encodeURIComponent(query)}`;
+      const apiKey = "AIzaSyDXc8z_dNA04L6J42deJyH3ObPeKvOLizw"; // Ganti dengan API Key Anda
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=50&q=${encodeURIComponent(query)}&key=${apiKey}`;
 
       try {
         const response = await fetch(apiUrl);
@@ -203,25 +219,28 @@
 
         resultsDiv.innerHTML = "";
 
-        if (data.results && data.results.length > 0) {
-          data.results.forEach((track) => {
-            const audioItem = document.createElement("div");
-            audioItem.className = "audio-item";
-            audioItem.innerHTML = `
-              <img src="${track.thumbnail}" alt="${track.title}" />
-              <h3>${track.title}</h3>
-              <audio controls>
-                <source src="${track.audioUrl}" type="audio/mpeg">
-                Browser Anda tidak mendukung pemutar audio.
-              </audio>
+        if (data.items && data.items.length > 0) {
+          data.items.forEach((video) => {
+            const videoItem = document.createElement("div");
+            videoItem.className = "video-item";
+            videoItem.innerHTML = `
+              <img src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}" />
+              <span>${video.snippet.title}</span>
             `;
-            resultsDiv.appendChild(audioItem);
+            videoItem.addEventListener("click", () => {
+              const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
+              window.open(videoUrl, "_blank");
+            });
+            resultsDiv.appendChild(videoItem);
           });
         } else {
           resultsDiv.innerHTML = "<p>Tidak ada hasil ditemukan.</p>";
         }
+
+        // Mengubah judul
+        document.title = `Hasil untuk "${query}"`;
       } catch (error) {
-        alert("Terjadi kesalahan saat mencari musik.");
+        alert("Terjadi kesalahan saat mencari video.");
         console.error(error);
       }
     });
