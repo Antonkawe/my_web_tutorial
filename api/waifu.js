@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
     const clientIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     const { tags, apikey } = req.query;
     const isBlocked = await redis.get(`blocked:${clientIP}`);
+    
     if (isBlocked) {
       return res.end(
         JSON.stringify(
@@ -29,6 +30,7 @@ module.exports = async (req, res) => {
         )
       );
     }
+
     if (apikey !== API_KEY) {
       return res.end(
         JSON.stringify(
@@ -42,11 +44,14 @@ module.exports = async (req, res) => {
         )
       );
     }
+
     const redisKey = `rate_limit:${clientIP}`;
     const currentRequests = await redis.incr(redisKey);
+
     if (currentRequests === 1) {
       await redis.expire(redisKey, LIMIT_WINDOW / 1000);
     }
+
     if (currentRequests > REQUEST_LIMIT) {
       await redis.set(`blocked:${clientIP}`, true);
       await redis.expire(`blocked:${clientIP}`, BLOCK_DURATION);
@@ -62,6 +67,7 @@ module.exports = async (req, res) => {
         )
       );
     }
+
     if (!tags) {
       return res.end(
         JSON.stringify(
@@ -75,8 +81,10 @@ module.exports = async (req, res) => {
         )
       );
     }
+
     const response = await axios.get(BASE_URL, { params: { included_tags: tags } });
     const { images } = response.data;
+
     if (!images || images.length === 0) {
       return res.end(
         JSON.stringify(
@@ -90,6 +98,7 @@ module.exports = async (req, res) => {
         )
       );
     }
+
     return res.end(
       JSON.stringify(
         {
@@ -97,7 +106,11 @@ module.exports = async (req, res) => {
           project: "AlphaCoder",
           owner: "Anton",
           timestamp: new Date().toISOString(),
-          images: images[0],
+          images: {
+             name: tags[0].name,
+             description: tags[0].description,
+             url: images[0].url,
+          },
         },
         null,
         2
