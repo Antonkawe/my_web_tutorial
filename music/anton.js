@@ -7,42 +7,35 @@ searchBtn.addEventListener("click", async () => {
   const query = searchInput.value.trim();
   if (!query) return alert("Masukkan kata kunci pencarian!");
 
+  const apiKey = "AIzaSyDXc8z_dNA04L6J42deJyH3ObPeKvOLizw";
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${apiKey}`;
+
   try {
-    const response = await fetch(`/api/youtube?apikey=AlphaCoder03&query=${encodeURIComponent(query)}`);
-    const data = response.data.data;
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
     resultsDiv.innerHTML = "";
-
-    if (data && data.length > 0) {
-      data.data.forEach((video) => {
+    if (data.items && data.items.length > 0) {
+      data.items.forEach((video) => {
         const videoItem = document.createElement("div");
         videoItem.className = "video-item";
         videoItem.innerHTML = `
-          <img src="${video.thumbnail}" alt="${video.title}" />
-          <span>${video.title}</span>
+          <img src="${video.snippet.thumbnails.default.url}" alt="${video.snippet.title}" />
+          <span>${video.snippet.title}</span>
         `;
 
-        // Perbaiki bagian ini untuk mendapatkan URL musik
-        const musicUrl = video.url;
-
+        const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
         videoItem.addEventListener("click", () => {
-          if (musicUrl) {
-            const audioPlayer = new Audio(musicUrl);
-            audioPlayer.loop = true;
-            audioPlayer.play();
-            player.style.display = "none"; // Sembunyikan player
-          } else {
-            alert("URL musik tidak ditemukan!");
-          }
+          window.open(videoUrl, "_blank");
         });
 
         resultsDiv.appendChild(videoItem);
       });
     } else {
-      alert("Musik tidak ditemukan!");
+      alert("Tidak ada hasil ditemukan.");
     }
   } catch (error) {
-    alert("Terjadi kesalahan saat mencari musik!");
+    alert("Terjadi kesalahan saat mencari video.");
     console.error(error);
   }
 });
