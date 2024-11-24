@@ -4,6 +4,9 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
     const videoPlayer = document.getElementById('videoPlayer');
+    const videoId = document.getElementById('videoId');
+    const videoRegion = document.getElementById('videoRegion');
+    const videoDuration = document.getElementById('videoDuration');
     const videoTitle = document.getElementById('videoTitle');
     const downloadButton = document.getElementById('downloadButton');
     resultDiv.style.display = 'none';
@@ -14,7 +17,10 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
         if (response.ok && data.status === 'success') {
             const videoUrl = data.video.url;
             videoPlayer.src = videoUrl;
-            videoTitle.textContent = data.video.title || 'Judul Tidak Tersedia';
+            videoId.textContent = `ID: ${data.video.id || 'id tidak tersedia'}`;
+            videoRegion.textContent = `Region: ${data.video.region || 'region tidak tersedia'}`;
+            videoDuration.textContent = `Durasi: ${data.video.duration || 'durasi tidak tersedia'}`;
+            videoTitle.textContent = `Title: ${data.video.title || 'Judul Tidak Tersedia'}`;
             downloadButton.onclick = () => {
                 window.location.href = `https://www.antoncodder.online/api/download?url=${encodeURIComponent(videoUrl)}`;
             };

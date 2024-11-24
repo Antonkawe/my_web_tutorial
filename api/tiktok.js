@@ -46,6 +46,7 @@ module.exports = async (req, res) => {
                             url: response.data.data.play,
                             duration: response.data.data.duration,
                         },
+                        duration: response.data.author || response.data.data.author,
                     },
                     null,
                     2
