@@ -1,21 +1,8 @@
 {
-  "version": 2,
   "rewrites": [
     {
       "source": "/:path*",
       "destination": "/:path*.html"
-    }
-  ],
-  "builds": [
-    {
-      "src": "api/*.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/ytdl",
-      "dest": "/api/ytdl.py"
     }
   ]
 }
