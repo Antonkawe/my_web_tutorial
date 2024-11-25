@@ -1,9 +1,7 @@
 module.exports = async (req) => {
-  const userAgent = req.headers.get("user-agent") || "";
+  const userAgent = req.get("User-Agent") || "";
   const suspiciousAgents = ["curl", "wget", "bot", "PostmanRuntime", "httpclient", "python"];
-  const isSuspicious =
-    suspiciousAgents.some((agent) => userAgent.toLowerCase().includes(agent)) ||
-    userAgent.trim() === "";
+    const isSuspicious = suspiciousAgents.some(agent => userAgent.toLowerCase().includes(agent)) || userAgent.trim() === "";
 
   if (isSuspicious) {
     return new Response(
@@ -19,7 +17,7 @@ module.exports = async (req) => {
       }
     );
   }
-  const ip = req.headers.get("x-forwarded-for") || req.ip || "unknown";
+  const ip = req.headers["x-forwarded-for"] || req.ip || "unknown";
   if (!rateLimiter.allow(ip)) {
     return new Response(
       "<html><body>Too many requests</body></html>",
@@ -38,13 +36,11 @@ module.exports = async (req) => {
 
 const rateLimiter = {
   ipTracker: new Map(),
-  limit: 2,
+  limit: 1,
   allow(ip) {
     const now = Date.now();
     const requests = this.ipTracker.get(ip) || [];
-    const filteredRequests = requests.filter(
-      (timestamp) => now - timestamp < 60000
-    );
+    const filteredRequests = requests.filter(timestamp => now - timestamp < 10000);
     filteredRequests.push(now);
     this.ipTracker.set(ip, filteredRequests);
     return filteredRequests.length <= this.limit;

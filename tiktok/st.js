@@ -1,6 +1,6 @@
 document.getElementById('downloadForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const url = document.getElementById('url').value;
+    const urlInput = document.getElementById('url').value.trim();
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
     const videoPlayer = document.getElementById('videoPlayer');
@@ -11,29 +11,61 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     const downloadButton = document.getElementById('downloadButton');
     resultDiv.style.display = 'none';
     errorDiv.style.display = 'none';
+    if (!urlInput) {
+        errorDiv.textContent = 'Harap masukkan URL TikTok yang valid.';
+        errorDiv.style.display = 'block';
+        return;
+    }
+
     try {
-        const response = await fetch(`/api/tiktok?url=${encodeURIComponent(url)}&apikey=AlphaCoder03`);
+        const response = await fetch(`/api/tiktok?url=${encodeURIComponent(urlInput)}&apikey=AlphaCoder03`);
         const data = await response.json();
         if (response.ok && data.status === 'success') {
-            const videoUrl = data.video.url;
-            videoPlayer.src = videoUrl;
-            videoId.textContent = `ID: ${data.video.id || 'id tidak tersedia'}`;
-            videoRegion.textContent = `Region: ${data.video.region || 'region tidak tersedia'}`;
-            videoDuration.textContent = `Durasi: ${data.video.duration || 'durasi tidak tersedia'}`;
-            videoTitle.textContent = `Title: ${data.video.title || 'Judul Tidak Tersedia'}`;
+            const { url, id, title, play, likes, comment, size, region, duration } = data.video;
+            updateVideoDetails(videoPlayer, videoId, videoTitle, videoRegion, videoDuration, {
+                url,
+                id,
+                title,
+                play,
+                likes,
+                comment,
+                size,
+                region,
+                duration,
+            });
             downloadButton.onclick = () => {
-                window.location.href = `https://www.antoncodder.online/api/download?url=${encodeURIComponent(videoUrl)}`;
+                window.location.href = `/api/download?url=${encodeURIComponent(url)}`;
             };
             resultDiv.style.display = 'block';
         } else {
-            errorDiv.textContent = data.message || 'Terjadi kesalahan pada server.';
-            errorDiv.style.display = 'block';
+            displayError(errorDiv, data.message || 'Terjadi kesalahan pada server.');
         }
     } catch (error) {
-        errorDiv.textContent = 'Untuk Layanan Paket Gratis Mungkin Sedang Gangguan. Silahkan Coba Lagi Lain Waktu😊';
-        errorDiv.style.display = 'block';
+        displayError(
+            errorDiv,
+            'Layanan mungkin sedang gangguan. Silakan coba lagi nanti. Jika terus berlanjut, hubungi dukungan.'
+        );
     }
 });
+
 document.getElementById('videoPlayer').addEventListener('click', (e) => {
     e.target.requestFullscreen();
 });
+
+function updateVideoDetails(player, idElem, titleElem, regionElem, durationElem, videoData) {
+    const { url, id, title, play, likes, comment, size, region, duration } = videoData;
+    player.src = url;
+    idElem.textContent = `ID: ${id || 'ID tidak tersedia'}`;
+    titleElem.textContent = `Judul: ${title || 'Judul tidak tersedia'}`;
+    document.getElementById('videoPlay').textContent = `Play: ${play || 'Tidak tersedia'}`;
+    document.getElementById('videoLikes').textContent = `Likes: ${likes || 'Tidak tersedia'}`;
+    document.getElementById('videoComment').textContent = `Comment: ${comment || 'Tidak tersedia'}`;
+    document.getElementById('videoSize').textContent = `Size: ${size || 'Tidak tersedia'}`;
+    regionElem.textContent = `Region: ${region || 'Region tidak tersedia'}`;
+    durationElem.textContent = `Durasi: ${duration || 'Durasi tidak tersedia'}`;
+}
+
+function displayError(errorElem, message) {
+    errorElem.textContent = message;
+    errorElem.style.display = 'block';
+}

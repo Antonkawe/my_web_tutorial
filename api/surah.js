@@ -3,123 +3,53 @@ const API_KEY = 'AlphaCoder03';
 
 module.exports = async (req, res) => {
     const { apikey, surahName } = req.query;
-
-    // Validasi API Key
     if (apikey !== API_KEY) {
-        return res.end(
-            JSON.stringify(
-                {
-                    status: 'error',
-                    errorCode: 'INVALID_API_KEY',
-                    message: 'API Key tidak valid.',
-                    timestamp: new Date().toISOString(),
-                    requestId: apikey || 'N/A',
-                    details: 'Periksa API Key yang Anda kirimkan dan pastikan itu benar.'
-                },
-                null,
-                2
-            )
-        );
+        return sendError(res, 401, 'INVALID_API_KEY', 'API Key tidak valid.', apikey);
     }
-
-    // Validasi Nama Surah
     if (!surahName) {
-        return res.end(
-            JSON.stringify(
-                {
-                    status: 'error',
-                    message: 'Nama Surah tidak diberikan.',
-                },
-                null,
-                2
-            )
-        );
+        return sendError(res, 400, 'MISSING_SURAH_NAME', 'Nama Surah tidak diberikan.');
     }
-
     try {
-        // Mengambil daftar surah dari API eksternal
         const surahListResponse = await axios.get('https://api.alquran.cloud/v1/surah');
         const surahList = surahListResponse.data.data;
-
-        // Menampilkan data surah yang didapat untuk debugging
-        console.log('Daftar Surah:', surahList);
-
-        // Mencari surah berdasarkan nama yang diberikan
-        const surah = surahList.find((s) => s.englishName.toLowerCase() === surahName.toLowerCase());
-
+        const surah = surahList.find(s => s.englishName.toLowerCase() === surahName.toLowerCase());
         if (!surah) {
-            return res.end(
-                JSON.stringify(
-                    {
-                        status: 'error',
-                        errorCode: 'SURAH_NOT_FOUND',
-                        message: `Surah dengan nama ${surahName} tidak ditemukan.`,
-                        timestamp: new Date().toISOString(),
-                        requestId: apikey,
-                    },
-                    null,
-                    2
-                )
-            );
+            return sendError(res, 404, 'SURAH_NOT_FOUND', `Surah dengan nama ${surahName} tidak ditemukan.`, apikey);
         }
-
-        // Mengambil detail surah dan teksnya
-        const API_URL = `https://api.alquran.cloud/v1/surah/${surah.number}`;
-        const response = await axios.get(API_URL);
-
-        if (response.data.status === 'OK') {
-            const surahData = response.data.data;
-
-            // Menampilkan data surah untuk debugging
-            console.log('Data Surah:', surahData);
-
-            return res.end(
-                JSON.stringify(
-                    {
-                        status: 'success',
-                        project: 'AlphaCoder',
-                        owner: 'Anton',
-                        surah: {
-                            id: surahData.number,
-                            name: surahData.englishName,
-                            revelation: surahData.revelationType,
-                            verses: surahData.numberOfAyahs,
-                            translation: surahData.englishNameTranslation,
-                            fullText: surahData.ayahs.map((ayah) => ayah.text).join(' '), // Menampilkan teks lengkap surah
-                        },
-                    },
-                    null,
-                    2
-                )
-            );
-        } else {
-            return res.end(
-                JSON.stringify(
-                    {
-                        status: 'error',
-                        errorCode: 'SURAH_NOT_FOUND',
-                        message: `Surah dengan nama ${surahName} tidak ditemukan.`,
-                        timestamp: new Date().toISOString(),
-                        requestId: apikey,
-                    },
-                    null,
-                    2
-                )
-            );
-        }
-    } catch (error) {
-        console.error('Terjadi kesalahan pada server:', error); // Log error untuk debugging
-
-        return res.end(
-            JSON.stringify(
-                {
-                    status: 'error',
-                    message: 'Terjadi kesalahan pada server.',
-                    details: error.message,
+        const surahDetailResponse = await axios.get(`https://api.alquran.cloud/v1/surah/${surah.number}`);
+        const surahData = surahDetailResponse.data.data;
+        return res.status(200).json(JSON.parse(JSON.stringify({
+            status: 'success',
+            code: 200,
+            data: {
+                project: 'AlphaCoder',
+                owner: 'Anton',
+                surah: {
+                    id: surahData.number,
+                    name: surahData.englishName,
+                    revelation: surahData.revelationType,
+                    verses: surahData.numberOfAyahs,
+                    translation: surahData.englishNameTranslation,
+                    fullText: surahData.ayahs.map(ayah => ayah.text).join(' '),
                 },
-                null,
-                2
-            )
-        );
+            },
+        }, null, 2)));
+    } catch (error) {
+        console.error('Terjadi kesalahan pada server:', error.message);
+        return sendError(res, 500, 'SERVER_ERROR', 'Terjadi kesalahan pada server.', error.message);
     }
+};
+
+const sendError = (res, statusCode, errorCode, message, details = null) => {
+    const response = {
+        status: 'error',
+        code: statusCode,
+        error: {
+            code: errorCode,
+            message: message,
+            details: details,
+        },
+        timestamp: new Date().toISOString(),
+    };
+    return res.status(statusCode).json(JSON.parse(JSON.stringify(response, null, 2)));
 };

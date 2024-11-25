@@ -1,4 +1,3 @@
 {
   "rewrites": [{"source":"/:path*","destination":"/:path*.html"}],
-  "routes": [{"src":"/(.*)","middlewarePath":"middleware.js"}]
 }
