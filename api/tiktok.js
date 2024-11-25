@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { formatNumber, getRegionName, formatFileSize, formatDuration } = require("./utils");
+const { formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
 const API_KEY = 'AlphaCoder03';
 
 module.exports = async (req, res) => {
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
             return res.end(JSON.stringify({
                 status: 'success',
                 project: 'AlphaCoder',
-                owner: 'Anton',
+                owner: 'Anton Thomzz',
                 video: formatVideoData(data),
                 profile: data.author
             }, null, 2));
