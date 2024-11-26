@@ -1,6 +1,5 @@
 const toggleApiKey = document.getElementById('toggleApiKey');
 const apiKeyInput = document.getElementById('apikey');
-
 toggleApiKey.addEventListener('click', () => {
     if (apiKeyInput.type === "password") {
         apiKeyInput.type = "text";

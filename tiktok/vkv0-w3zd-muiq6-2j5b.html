@@ -17,6 +17,7 @@
     <title>TikTok Video Downloader</title>
     <link rel="icon" href="../images/anton.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="st.css">
 </head>
 <body>
@@ -24,36 +25,48 @@
         <h1><i class="fab fa-tiktok"></i> TikTok Downloader</h1>
         <p>Unduh video TikTok favorit Anda tanpa watermark!</p>
     </header>
+
     <div class="sidebar">
         <a href="#unduh"><i class="fas fa-download"></i> Unduh</a>
         <a class="fas fa-code" href="#" onclick="showApi()"></i> API</a>
     </div>
+
     <div id="unduh" class="container">
         <div class="note">
             Harap diperhatikan: Gunakan layanan ini hanya untuk konten yang Anda miliki atau memiliki izin untuk diunduh.
         </div>
+
         <form id="downloadForm">
             <input type="text" id="url" placeholder="Masukkan URL TikTok" required>
             <button type="submit"><i class="fas fa-paper-plane"></i> Proses Video</button>
         </form>
+
         <div id="result" class="video-preview" style="display: none;">
-            <p id="videoId"><i class="fas fa-video"></i> ID Video</p>
-            <p id="videoPlay"><i class="fas fa-video"></i> Play Video</p>
-            <p id="videoTitle"><i class="fas fa-video"></i> Judul Video</p>
-            <p id="videoLikes"><i class="fas fa-video"></i> Likes Video</p>
-            <p id="videoComment"><i class="fas fa-video"></i> Comment Video</p>
-            <p id="videoSize"><i class="fas fa-video"></i> Size Video</p>
-            <p id="videoRegion"><i class="fas fa-video"></i> Region Video</p>
-            <p id="videoDuration"><i class="fas fa-video"></i> Durasi Video</p>
-            <video id="videoPlayer" controls></video>
-            <button id="downloadButton"><i class="fas fa-download"></i> Unduh Video</button>
+            <div class="video-box">
+                <div class="video-details">
+                    <p id="videoId"><i class="fas fa-video"></i> ID Video</p>
+                    <p id="videoPlay"><i class="fas fa-video"></i> Play Video</p>
+                    <p id="videoTitle"><i class="fas fa-video"></i> Judul Video</p>
+                    <p id="videoLikes"><i class="fas fa-thumbs-up"></i> Likes Video</p>
+                    <p id="videoComment"><i class="fas fa-comment"></i> Comment Video</p>
+                    <p id="videoSize"><i class="fas fa-file-video"></i> Size Video</p>
+                    <p id="videoRegion"><i class="fas fa-globe"></i> Region Video</p>
+                    <p id="videoDuration"><i class="fas fa-clock"></i> Durasi Video</p>
+                </div>
+                <div class="video-player">
+                    <button id="downloadButton"><i class="fas fa-download"></i> Unduh Video</button>
+                    <video id="videoPlayer" controls></video>
+                </div>
+            </div>
         </div>
+
         <div id="error" style="color: red; text-align: center; display: none;"></div>
     </div>
-    
+
     <footer>
         <p>&copy; 2024 <a href="https://www.antoncodder.online" target="_blank">AlphaCoder</a>. Semua Hak Dilindungi.</p>
     </footer>
+
     <script src="st.js"></script>
     <script src="an.js"></script>
 </body>
