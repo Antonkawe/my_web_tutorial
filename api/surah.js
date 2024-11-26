@@ -1,33 +1,9 @@
 const axios = require('axios');
 const API_KEY = 'AlphaCoder03';
 
-const sendError = (res, statusCode, errorCode, message, details = null) => {
-    const response = {
-        status: 'error',
-        code: statusCode,
-        error: {
-            code: errorCode,
-            message: message,
-            details: details,
-        },
-        timestamp: new Date().toISOString(),
-    };
-
-    return sendFormattedResponse(res, statusCode, 'error', response);
-};
-
-const sendFormattedResponse = (res, statusCode, status, data) => {
-    const formattedData = JSON.stringify(data, (key, value) => {
-        if (typeof value === 'string') {
-            return value.replace(/\n/g, ' ').replace(/\r/g, '');
-        }
-        return value;
-    }, 2);
-    res.status(statusCode).set('Content-Type', 'application/json').send(formattedData);
-};
-
 module.exports = async (req, res) => {
     const { apikey, surahName } = req.query;
+
     if (apikey !== API_KEY) {
         return sendError(res, 401, 'INVALID_API_KEY', 'API Key tidak valid.', apikey);
     }
@@ -65,4 +41,29 @@ module.exports = async (req, res) => {
         console.error('Terjadi kesalahan pada server:', error.message);
         return sendError(res, 500, 'SERVER_ERROR', 'Terjadi kesalahan pada server.', error.message);
     }
+};
+
+const sendError = (res, statusCode, errorCode, message, details = null) => {
+    const response = {
+        status: 'error',
+        code: statusCode,
+        error: {
+            code: errorCode,
+            message: message,
+            details: details,
+        },
+        timestamp: new Date().toISOString(),
+    };
+
+    return sendFormattedResponse(res, statusCode, 'error', response);
+};
+
+const sendFormattedResponse = (res, statusCode, status, data) => {
+    const formattedData = JSON.stringify(data, (key, value) => {
+        if (typeof value === 'string') {
+            return value.replace(/\n/g, ' ').replace(/\r/g, '');
+        }
+        return value;
+    }, 2);
+    return res.status(statusCode).json(JSON.parse(formattedData));
 };
