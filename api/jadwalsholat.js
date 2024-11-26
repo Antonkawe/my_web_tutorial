@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     }
 
     try {
-        const response = await axios.get('http://api.aladhan.com/v1/timingsByCity', {
+        const response = await axios.get('https://api.aladhan.com/v1/timingsByCity', {
             params: { city, country: 'Indonesia', method },
         });
         const { timings, date, meta } = response.data.data;

@@ -18,6 +18,7 @@ module.exports = async (req, res) => {
         }
         const surahDetailResponse = await axios.get(`https://api.alquran.cloud/v1/surah/${surah.number}`);
         const surahData = surahDetailResponse.data.data;
+        
         const response = {
             status: 'success',
             code: 200,
@@ -30,10 +31,11 @@ module.exports = async (req, res) => {
                     revelation: surahData.revelationType,
                     verses: surahData.numberOfAyahs,
                     translation: surahData.englishNameTranslation,
-                    fullText: surahData.ayahs.map(ayah => ayah.text).join(' '),
+                    fullText: Array.isArray(surahData.ayahs) ? surahData.ayahs.map(ayah => ayah.text).join(' ') : '',
                 },
             },
         };
+
         return sendFormattedResponse(res, 200, 'success', response);
     } catch (error) {
         console.error('Terjadi kesalahan pada server:', error.message);
@@ -63,7 +65,5 @@ const sendFormattedResponse = (res, statusCode, status, data) => {
         }
         return value;
     }, 2);
-    res.status(statusCode).set('Content-Type', 'application/json');
-    res.write(formattedData);
-    res.end();
+    res.status(statusCode).set('Content-Type', 'application/json').send(formattedData);
 };
