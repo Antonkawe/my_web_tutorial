@@ -61,9 +61,9 @@ const sendError = (res, statusCode, errorCode, message, details = null) => {
 const sendFormattedResponse = (res, statusCode, status, data) => {
     const formattedData = JSON.stringify(data, (key, value) => {
         if (typeof value === 'string') {
-            return value.replace(/\n/g, ' ').replace(/\r/g, '');
+            return value.replace(/\n/g, '\n').replace(/\r/g, '');
         }
         return value;
     }, 2);
-    return res.status(statusCode).json(JSON.parse(formattedData));
+    return res.status(statusCode).end(formattedData);
 };

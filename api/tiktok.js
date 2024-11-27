@@ -1,6 +1,15 @@
 const axios = require('axios');
-const { formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
-const API_KEY = 'AlphaCoder03';
+const {
+  respon,
+  sendError,
+  formatNumber, 
+  getRegionName, 
+  formatFileSize, 
+  formatDuration 
+} = require("./data/utils");
+
+require('dotenv').config();
+const API_KEY = process.env.API_KEY;
 
 module.exports = async (req, res) => {
     const { url, apikey } = req.query;
@@ -11,27 +20,18 @@ module.exports = async (req, res) => {
         const data = response.data?.data;
 
         if (data?.play) {
-            return res.end(JSON.stringify({
+            return respon(
                 status: 'success',
                 project: 'AlphaCoder',
                 owner: 'Anton Thomzz',
                 video: formatVideoData(data),
                 profile: data.author
-            }, null, 2));
+            );
         }
         return sendError(res, 'VIDEO_NOT_FOUND', 'Video tidak ditemukan.');
     } catch (error) {
         return sendError(res, 'SERVER_ERROR', `Terjadi kesalahan pada server: ${error.message}`);
     }
-};
-
-const sendError = (res, code, message) => {
-    return res.end(JSON.stringify({
-        status: 'error',
-        errorCode: code,
-        message: message,
-        timestamp: new Date().toISOString()
-    }, null, 2));
 };
 
 const formatVideoData = data => ({
