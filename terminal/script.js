@@ -1,6 +1,8 @@
-const editor = ace.edit("editor");
-editor.setTheme("ace/theme/twilight");
-editor.session.setMode("ace/mode/javascript");
+const editor = ace.edit("editor", {
+    theme: "ace/theme/monokai",
+    mode: "ace/mode/javascript",
+    autoScrollEditorIntoView: true
+});
 
 function changeMode() {
     const language = document.getElementById("language").value;
@@ -27,24 +29,37 @@ function runCode() {
     const language = document.getElementById("language").value;
     const code = editor.getValue();
     const output = document.getElementById("output");
-    output.innerHTML = ""; // Membersihkan output sebelumnya
-    appendToOutput("Memulai eksekusi kode...", false);
-
+    output.style.display = "block";
+    output.innerHTML = "";
     if (language === "javascript") {
-        const originalConsoleLog = console.log;
+        const originalConsole = { ...console };
         console.log = (message) => appendToOutput(message);
-        
+        console.warn = (message) => appendToOutput(`${message}`, true);
+        console.error = (message) => appendToOutput(`${message}`, true);
+        console.info = (message) => appendToOutput(`${message}`);
         try {
             const startTime = performance.now();
-            new Function(code)(); // Menjalankan kode JavaScript
+            if (code.includes("fetch") || code.includes("axios")) {
+                new Function(`
+                    (async () => {
+                        try {
+                            ${code}
+                        } catch (error) {
+                            appendToOutput("Error: " + error.message, true);
+                        }
+                    })();
+                `)();
+            } else {
+                new Function(code)();
+            }
             const endTime = performance.now();
-            appendToOutput(`Eksekusi selesai dalam ${(endTime - startTime).toFixed(2)} ms`, false);
         } catch (error) {
             handleError(error);
         }
-        
-        console.log = originalConsoleLog;
-        
+        console.log = originalConsole.log;
+        console.warn = originalConsole.warn;
+        console.error = originalConsole.error;
+        console.info = originalConsole.info;
     } else if (language === "html") {
         output.innerHTML = "";
         const iframe = document.createElement("iframe");
@@ -52,23 +67,28 @@ function runCode() {
         iframe.style.height = "100%";
         iframe.style.border = "none";
         output.appendChild(iframe);
-        
         const doc = iframe.contentDocument || iframe.contentWindow.document;
         doc.open();
         doc.write(code);
         doc.close();
-        
     } else if (language === "markdown") {
-        output.innerHTML = marked(code);
+        output.innerHTML = marked.parse(code);
     }
 }
 
 function handleError(error) {
     let errorMessage = `Error: ${error.message}`;
     const stack = error.stack.split('\n');
-    const lineMatch = stack[0].match(/<anonymous>:(\d+):\d+/);
-    const lineNumber = lineMatch ? lineMatch[1] : "unknown";
+    const filteredStack = stack.filter(line => !line.includes("http", "https"));
+    const lineMatch = stack[1].match(/<anonymous>:(\d+):(\d+)/);
+    let lineNumber = "unknown";
+    if (lineMatch) {
+        lineNumber = parseInt(lineMatch[1]) - 1;
+    } else {
+        const aceCursorPosition = editor.getCursorPosition();
+        lineNumber = aceCursorPosition.row + 1;
+    }
     errorMessage += ` di baris ${lineNumber}`;
-    errorMessage += "<br>" + stack.slice(1).join("<br>");
+    errorMessage += "<br>" + filteredStack.slice(1).join("<br>");
     appendToOutput(errorMessage, true);
 }

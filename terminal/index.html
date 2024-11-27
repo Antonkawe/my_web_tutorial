@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Virtual - HTML, JavaScript, dan Markdown</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Console</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Source Code Pro',monospace;background:#121212;color:#e0e0e0;display:flex;flex-direction:column;align-items:center;padding:20px;min-height:100vh}h1{margin-bottom:15px;font-weight:600}p{color:#aaa;margin-bottom:20px}#editor,.terminal-output{height:400px;width:100%;margin:3px;max-width:800px;border-radius:5px;border:1px solid #333;box-shadow:0 4px 10px rgb(0 0 0 / .5)}.terminal-output{background-color:#1e1e1e;display:none;padding:15px;overflow-y:auto;white-space:pre-wrap}button{background-color:#007acc;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-weight:600;transition:background-color 0.3s ease,transform 0.2s}button:hover{background-color:#005a9e;transform:scale(1.05)}select{padding:10px;background-color:#333;color:#e0e0e0;border-radius:5px}.toolbar{display:flex;justify-content:space-between;width:100%;max-width:800px;margin-bottom:10px}
+    </style>
 </head>
 <body>
-    <h1>Terminal Virtual - HTML, JavaScript, dan Markdown</h1>
-    <p>Input HTML, JavaScript, atau Markdown code dan jalankan untuk melihat output.</p>
-    <select id="language" onchange="changeMode()">
-        <option value="javascript">JavaScript</option>
-        <option value="html">HTML</option>
-        <option value="markdown">Markdown</option>
-    </select>
+    <h1><i class="fas fa-terminal"></i> Console Virtual</h1>
+    <p>Input kode HTML, JavaScript, atau Markdown, lalu tekan "Run Code".</p>
+    <div class="toolbar">
+        <select id="language" onchange="changeMode()">
+            <option value="javascript">JavaScript</option>
+            <option value="html">HTML</option>
+            <option value="markdown">Markdown</option>
+        </select>
+        <button onclick="runCode()"><i class="fas fa-play"></i> Run Code</button>
+    </div>
     <div id="editor"></div>
-    <button onclick="runCode()">Run Code</button>
     <pre id="output" class="terminal-output"></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -89,19 +89,21 @@
       <div class="code-container">
         <div class="code-header">
         </div>
-        <pre><code class="language-html">
-&lt;!DOCTYPE html&gt;
-&lt;html lang="id"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;AlphaCoder&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-   &lt;header class="header"&gt;
-        &lt;h1&gt;AlphaCoder - Tutorial&lt;/h1&gt;
-   &lt;/header&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+        <pre><code class="language-javascript">
+const factorial = a => (a <= 1 ? 1: a * factorial(a - 1));
+console.log(factorial(5));
+// 5 × 4 × 3 × 2 × 1 = 120
+// output = 120
+
+const kali = (a, b) => a * b;
+console.log(kali(10, 10));
+// 10 × 10 = 100
+// output = 100
+
+const random = list => list[Math.floor(Math.random() * list.length)]
+const array = [1, 2, 3];
+console.log(random(array))
+// Ambil random dari array
            </code></pre>
        </div>
     </div>
@@ -116,7 +118,7 @@
           <div class="col-lg-3 col-md-4">
             <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
               <i class="bi-terminal" style="color: #ffbb2c;"></i>
-              <h3><a href="#" onclick="showTerminal()">Terminal</a></h3>
+              <h3><a href="#" onclick="showTerminal()">Console</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
