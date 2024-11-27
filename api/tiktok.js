@@ -1,7 +1,6 @@
 const axios = require('axios');
 const { sendError, formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
-require('dotenv').config();
-const API_KEY = process.env.API_KEY;
+const API_KEY = "AlphaCoder03";
 
 module.exports = async (req, res) => {
     const { url, apikey } = req.query;
