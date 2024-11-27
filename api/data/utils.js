@@ -43,23 +43,13 @@ const formatDuration = seconds => {
     return `${minutes} menit ${remainingSeconds} detik`;
 };
 
-const reply = (res, text, statusCode = 200) => {
-    res.statusCode = statusCode;
-    res.setHeader('Content-Type', 'application/json');
-    return res.end(JSON.stringify({ text }, null, 2));
-};
-
 const sendError = (res, code, message) => {
-    return reply(res, {
+    return res.end(JSON.stringify({
         status: 'error',
         errorCode: code,
         message: message,
         timestamp: new Date().toISOString()
-    });
+    }, null, 2));
 };
 
-const respon = (text) => {
-    return res.end(JSON.stringify({ text }, null, 2));
-}
-
-module.exports = { respon, sendError, reply, formatNumber, getRegionName, formatFileSize, formatDuration };
+module.exports = { sendError, formatNumber, getRegionName, formatFileSize, formatDuration };

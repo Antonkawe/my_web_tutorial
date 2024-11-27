@@ -1,13 +1,5 @@
 const axios = require('axios');
-const {
-  respon,
-  sendError,
-  formatNumber, 
-  getRegionName, 
-  formatFileSize, 
-  formatDuration 
-} = require("./data/utils");
-
+const { sendError, formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
 require('dotenv').config();
 const API_KEY = process.env.API_KEY;
 
@@ -20,13 +12,13 @@ module.exports = async (req, res) => {
         const data = response.data?.data;
 
         if (data?.play) {
-            return respon(
+            return res.end(JSON.stringify({
                 status: 'success',
                 project: 'AlphaCoder',
                 owner: 'Anton Thomzz',
                 video: formatVideoData(data),
                 profile: data.author
-            );
+            }, null, 2));
         }
         return sendError(res, 'VIDEO_NOT_FOUND', 'Video tidak ditemukan.');
     } catch (error) {
