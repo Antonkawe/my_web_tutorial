@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { aend, sendError, formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
+const { sendError, formatNumber, getRegionName, formatFileSize, formatDuration } = require("./data/utils");
 const API_KEY = "AlphaCoder03";
 
 module.exports = async (req, res) => {
@@ -11,13 +11,13 @@ module.exports = async (req, res) => {
         const data = response.data?.data;
 
         if (data?.play) {
-            send(
+            return res.end(JSON.stringify({
                 status: 'success',
                 project: 'AlphaCoder',
                 owner: 'Anton Thomzz',
                 video: formatVideoData(data),
                 profile: data.author
-            );
+            }, null, 2));
         }
         return sendError(res, 'VIDEO_NOT_FOUND', 'Video tidak ditemukan.');
     } catch (error) {
