@@ -1,5 +1,16 @@
 const region = require("./language");
 
+const sendError = (res, code, message) => {
+    return res.end(JSON.stringify({
+        status: 'error',
+        errorCode: code,
+        message: message,
+        timestamp: new Date().toISOString()
+    }, null, 2));
+};
+
+const send = (res, text) => res.end(JSON.stringify({ text }, null, 2));
+
 /**
  * Format angka menjadi bentuk singkat (contoh: 1k, 1.2M)
  * @param {number} num - Angka yang akan diformat
@@ -43,13 +54,4 @@ const formatDuration = seconds => {
     return `${minutes} menit ${remainingSeconds} detik`;
 };
 
-const sendError = (res, code, message) => {
-    return res.end(JSON.stringify({
-        status: 'error',
-        errorCode: code,
-        message: message,
-        timestamp: new Date().toISOString()
-    }, null, 2));
-};
-
-module.exports = { sendError, formatNumber, getRegionName, formatFileSize, formatDuration };
+module.exports = { send, sendError, formatNumber, getRegionName, formatFileSize, formatDuration };

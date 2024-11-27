@@ -11,13 +11,13 @@ module.exports = async (req, res) => {
         const data = response.data?.data;
 
         if (data?.play) {
-            return res.end(JSON.stringify({
+            send(
                 status: 'success',
                 project: 'AlphaCoder',
                 owner: 'Anton Thomzz',
                 video: formatVideoData(data),
                 profile: data.author
-            }, null, 2));
+            );
         }
         return sendError(res, 'VIDEO_NOT_FOUND', 'Video tidak ditemukan.');
     } catch (error) {
